@@ -10,6 +10,8 @@ class UsersController < ApplicationController
 
   def create
     @user = User.create(user_params)
+    @user.img_url =  "board#{rand(1..10)}.jpeg"
+    @user.save
   end
 
   def show
