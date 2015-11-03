@@ -1,14 +1,20 @@
 <h1>LOGIN</h1>
-
+<p>
+<% if flash[:notice] %>
+    <div class="notice"><%= flash[:notice] %></div>
+  <% end %>
 <%= form_tag login_path do %>
-<%= label_tag :name %> 
+<%= label_tag :name, "NAME"%>
 <%= text_field_tag :name %>
-<br>
+</p>
+<p>
 <%= label_tag :password %>
 <%= password_field_tag :password %>
-<br>
+</p>
+
+<p>
 <%= label_tag :password_confirmation %>
 <%= password_field_tag :password_confirmation %>
-<br>
+</p>
 <%= submit_tag "LOGIN" %>
 <% end %>

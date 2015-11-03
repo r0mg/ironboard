@@ -6,8 +6,8 @@ class SessionsController < ApplicationController
      session[:user_id] = user.id 
      redirect_to user_path(user)
   else 
-    flash.now.alert = "Invalid input"
-    redirect_to login_path
+    flash[:notice] = "Invalid input"
+    redirect_to login_path , notice: "Invalid input"
   end
  end
 
