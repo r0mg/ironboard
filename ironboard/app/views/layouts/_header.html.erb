@@ -1,5 +1,13 @@
 <div id="header">
-Welcome! | Login | Sign Up | Iron some clothes | <%= link_to "Home", "/" %> | 
+<% if current_user %>
+Welcome, <%= current_user.name %> ! 
+<%= link_to "LOG OUT", logout_path %> |  
+<% else %>
+<%= link_to "LOG IN", login_path %> | 
+<%= link_to "SIGN UP", login_path %> | 
+<% end %>
+<%= link_to "Home", "/" %> | 
 <%= link_to "Events", events_path %> | 
 <%= link_to "Users", users_path %> | 
+
 </div>

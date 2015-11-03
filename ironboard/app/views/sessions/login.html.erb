@@ -1,1 +1,14 @@
-LOGIN
+<h1>LOGIN</h1>
+
+<%= form_tag login_path do %>
+<%= label_tag :name %> 
+<%= text_field_tag :name %>
+<br>
+<%= label_tag :password %>
+<%= password_field_tag :password %>
+<br>
+<%= label_tag :password_confirmation %>
+<%= password_field_tag :password_confirmation %>
+<br>
+<%= submit_tag "LOGIN" %>
+<% end %>
