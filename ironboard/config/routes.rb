@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   get '/signup' => 'users#new'
   post '/signup' => 'users#create'
   get "/logout" => 'sessions#destroy'
+  post '/events/:id' => 'rsvps#create', as: 'rsvp'
 
 end

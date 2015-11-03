@@ -1,3 +1,7 @@
+<% if flash[:notice] %>
+   <div class="notice"><%= flash[:notice] %></div>
+ <% end %>
+
 <h1><%= @event.title %></h1>
 
 <div class="event-top-info">
@@ -21,18 +25,25 @@
     <%= @event.description %>
   </p>
   <p>
-    Hosted by: <%= @event.host.name %>!
+    Hosted by: <%= link_to @event.host.user.name,user_path(@event.host.user) %>!
   </p>
 </div>
+
 <div>
+<%= button_to "Attend Event", rsvp_path %>
+</div>
+
+<div>
+  <% if !@event.guests.empty? %>
   <p>
-    Attending...
+    Guests Attending:
   </p>
   <ul>
     <% @event.guests.each do |guest| %>
     <li>
-      <%= guest.name %>
+      <%= guest.user.name %>
     </li>
+                 <% end %>
     <% end %>
   </ul>
 </div>
