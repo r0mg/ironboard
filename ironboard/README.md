@@ -9,3 +9,12 @@ TO DO
 - create model methods
 - create views
 - create sessions
+
+TONIGHT:
+
+- sessions
+- events index 
+- users index
+- user show page
+- user edit page
+- new user page

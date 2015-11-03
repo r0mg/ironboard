@@ -10,8 +10,33 @@
       </ul>
     </div>
   <% end %>
-
   <div class="actions">
-    <%= f.submit %>
+  <table>
+    <tr>
+      <td><%= f.label :title %></td>
+      <td><%= f.text_field :title %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :day %></td>
+      <td><%= f.date_field :day %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :start_time %></td>
+      <td><%= f.time_field :start_time %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :end_time %></td>
+      <td><%= f.time_field :end_time %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :location %></td>
+      <td><%= f.text_field :location %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :description %></td>
+      <td><%= f.text_area :description %></td>
+    </tr>
+  </table>
+        <%= f.submit %>
   </div>
 <% end %>
