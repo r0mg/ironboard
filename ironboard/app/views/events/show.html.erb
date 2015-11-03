@@ -1,4 +1,40 @@
-<p id="notice"><%= notice %></p>
+<h1><%= @event.title %></h1>
 
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+<div class="event-top-info">
+  <h3>
+    Day of event: <%= @event.day %>
+  </h3>
+  <ul>
+    <li>
+      Starts at <%= @event.start_time %>
+    </li>
+    <li>
+      Ends at <%= @event.end_time %>
+    </li>
+    <li>
+      Located at <%= @event.location %>
+    </li>
+  </ul>
+</div>
+<div class="event-more-info">
+  <p>
+    <%= @event.description %>
+  </p>
+  <p>
+    Hosted by: <%= @event.host.name %>!
+  </p>
+</div>
+<div>
+  <p>
+    Attending...
+  </p>
+  <ul>
+    <% @event.guests.each do |guest| %>
+    <li>
+      <%= guest.name %>
+    </li>
+    <% end %>
+  </ul>
+</div>
+
+
