@@ -1,4 +1,23 @@
 <p id="notice"><%= notice %></p>
 
+<h2> User Name: <%= @user.name %> </h2>
+
+<h3> User Bio: <%= @user.bio %> </h3>
+
+<%= image_tag @user.img_url , size: "90", alt: "user_avatar" %>
+
+<br>
+
+Events <%= @user.name %> is attending:
+<ul>
+<% @user.events.each do |event| %>
+	<li>
+	<%= event.title %>: <%= event.description %> (<%= event.day %>) <br>
+	</li>
+<% end %>
+</ul>
+<br>
+<br>
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
