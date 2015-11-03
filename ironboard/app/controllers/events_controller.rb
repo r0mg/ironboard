@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+before_action :user_authorized, except: [:index,:show]
 
   def index
     @events = Event.all
@@ -9,7 +10,9 @@ class EventsController < ApplicationController
   end
 
   def create
-    event = Event.create(event_params)
+    event = Event.new(event_params)
+    event.host = current_user.host
+    event.save
     redirect_to event_path(event)
   end
 

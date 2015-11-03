@@ -4,7 +4,7 @@ Welcome, <%= current_user.name %> !
 <%= link_to "LOG OUT", logout_path %> |  
 <% else %>
 <%= link_to "LOG IN", login_path %> | 
-<%= link_to "SIGN UP", login_path %> | 
+<%= link_to "SIGN UP", signup_path %> | 
 <% end %>
 <%= link_to "Home", "/" %> | 
 <%= link_to "Events", events_path %> | 
