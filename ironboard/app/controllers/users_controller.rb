@@ -9,9 +9,14 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.create(user_params)
+    @user = User.new(user_params)
     @user.img_url =  "board#{rand(1..10)}.jpeg"
-    @user.save
+    if @user.save
+      session[:user_id] = @user.id
+      redirect_to user_path(@user)
+    else 
+      render 'new'
+    end
   end
 
   def show
@@ -31,7 +36,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :bio, :location)
+    params.require(:user).permit(:name, :bio, :location, :password, :password_confirmation)
   end
   
 end
