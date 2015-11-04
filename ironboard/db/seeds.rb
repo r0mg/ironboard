@@ -17,7 +17,7 @@ user3 = User.create(name: "matthew", location: "11211", bio: "yeah", password: "
 	user = User.new
 	user.name = Faker::Name.name
 	user.bio = [Faker::Hacker.adjective,Faker::Hacker.noun].join(' ')
-	user.location = Faker::Address.zip
+	user.location = [Faker::Address.street_address, "New York"].join(', ')
 	user.img_url = "board#{rand(1..10)}.jpeg"
 	user.email = Faker::Internet.email
 	user.password = "password"
@@ -49,7 +49,7 @@ tag_names = ['pizza','whiskey','cats','dogs','school','books','naptime','wut']
 50.times do |i|
 	event = User.all.sample.host.events.build
 	event.title = [Faker::App.name,Faker::Hacker.adjective,Faker::Hacker.noun,event_suffixes.sample].join(' ')
-	event.location = Faker::Address.zip
+	event.location = Faker::Address.street_address
 	event.day = Faker::Date.between(7.days.ago, Date.today+7)
 	event.start_time = "#{rand(10..20)}:00"
 	event.end_time = event.start_time+rand(60*60*0.5 .. 60*60*4)
@@ -58,7 +58,7 @@ tag_names = ['pizza','whiskey','cats','dogs','school','books','naptime','wut']
 end
 
 event1.tags.create(name: "pizza")
-event1.tags.create(name: "awesome")
+event1.tags.create(name: "party")
 
 event2.tags.create(name: "ping pong")
 event2.tags.create(name: "whiskey")
