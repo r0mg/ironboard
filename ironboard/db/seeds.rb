@@ -51,8 +51,8 @@ tag_names = ['pizza','whiskey','cats','dogs','school','books','naptime','wut']
 	event.title = [Faker::App.name,Faker::Hacker.adjective,Faker::Hacker.noun,event_suffixes.sample].join(' ')
 	event.location = Faker::Address.zip
 	event.day = Faker::Date.between(7.days.ago, Date.today)
-	event.start_time = "#{rand(0..20)}:00"
-	event.end_time = event.start_time+rand(60*60*4)
+	event.start_time = "#{rand(10..20)}:00"
+	event.end_time = event.start_time+rand(60*60*0.5 .. 60*60*4)
 	event.save
 	event.tags.create(name: tag_names.sample)
 end
