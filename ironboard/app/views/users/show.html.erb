@@ -7,18 +7,21 @@
 <%= image_tag @user.img_url , size: "90", alt: "user_avatar" %>
 
 <br>
-<% if !@user.guest.events.empty? %>
+  <% if !@user.guest.events.empty? %>
 Events <%= @user.name %> is attending:
 <ul>
-<% @user.guest.events.each do |event| %>
-	<li>
-	<%= event.title %>: <%= event.description %> (<%= event.day %>) <br>
-	</li>
-<% end %>
+  <% @user.guest.events.each do |event| %>
+	 <li>
+	 <%= event.title %>: <%= event.description %> (<%= event.day %>) <br>
+	 </li>
+    <% end %>
+  <% else %>
+  <%= @user.name %> is currently not attending any events. Boooring!
 <%end %>
 </ul>
 <br>
 <br>
+  <% if !@user.host.events.empty? %>
 Events <%= @user.name %> is hosting:
 <ul>
 <% @user.host.events.each do |event| %>
@@ -26,6 +29,9 @@ Events <%= @user.name %> is hosting:
   <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
   </li>
 <% end %>
+<% else %>
+  <%= @user.name %> is currently not hosting any events.
+<%end %>
 </ul> 
 <br>
 <br>
