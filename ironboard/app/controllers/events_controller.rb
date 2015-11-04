@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-before_action :user_authorized, except: [:index,:show]
+  before_action :user_authorized, except: [:index,:show]
 
   def index
     @events = Event.all
@@ -11,17 +11,27 @@ before_action :user_authorized, except: [:index,:show]
 
   def create
     event = Event.new(event_params)
-    event.host = current_user.host
+    event.host = current_user.host  
     event.save
     redirect_to event_path(event)
   end
 
   def show
     @event = Event.find(params[:id])
+    # giphy_client = Adapters::GiphyClient.new
+    # @tags = @event.tags
+    # @gif_urls = []
+    # @event.tags.each do |tag|
+      # @gif_urls << giphy_client.find_by_tag(tag.name.gsub(' ','+'))
+    # end
   end
 
   def edit
     @event = Event.find(params[:id])
+    if !permission_to_edit?(@event.host.user)
+      flash[:notice] = "You do not have permission to edit this event."
+      render 'show'
+    end
   end
 
   def update
@@ -33,7 +43,7 @@ before_action :user_authorized, except: [:index,:show]
   private
 
   def event_params
-    params.require(:event).permit(:title, :day, :start_time, :end_time, :description, :location)
+    params.require(:event).permit(:title, :day, :start_time, :end_time, :description, :location, tag_ids: [], tags_attributes: [:name])
   end
   
 end

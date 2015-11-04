@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<% if flash[:notice] %>
+   <br><div class="notice"><%= flash[:notice] %></div>
+ <% end %>
 
 <h2> User Name: <%= @user.name %> </h2>
 

@@ -5,6 +5,11 @@
 <h1><%= @event.title %></h1>
 
 <div class="event-top-info">
+  
+  <% @event.tags.each do |tag| %>
+    <a href="/tags/<%= tag.id %>"><img style="height:150px;width:auto;" src="<%= tag.giphy_url %>"> </a>
+  <% end %>
+
   <h3>
     Day of event: <%= @event.day %>
   </h3>
@@ -19,6 +24,17 @@
       Located at <%= @event.location %>
     </li>
   </ul>
+
+<iframe
+  width="400"
+  height="300"
+  frameborder="0" style="border:0"
+  src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyDmdPRiBHOWqZOBU1FeaJDhi6IkE-MYst8
+    &origin=Flatiron+School,NewYork+NY&destination=<%=@event.location %>,New York+NY" allowfullscreen>
+</iframe>
+
+
+
 </div>
 <div class="event-more-info">
   <p>
@@ -47,5 +63,7 @@
     <% end %>
   </ul>
 </div>
-
+<div>
+<%= link_to "Edit", edit_event_path(@event) %>
+</div>
 

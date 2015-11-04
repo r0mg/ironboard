@@ -36,7 +36,17 @@
       <td><%= f.label :description %></td>
       <td><%= f.text_area :description %></td>
     </tr>
-  </table>
+  </table><br>
+  <%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name %>
+  <%= f.fields_for :tags, Tag.new do |tag_f| %>
+    <h3>Add new tag: </h3>
+    <table>
+      <tr>    
+        <td><%= tag_f.label :name %></td>
+        <td><%= tag_f.text_field :name %></td>
+      </tr>
+    </table><br>
+  <% end %>
         <%= f.submit %>
   </div>
 <% end %>
