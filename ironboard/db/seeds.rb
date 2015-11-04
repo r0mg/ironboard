@@ -13,6 +13,7 @@ user2 = User.create(name: "Roslynn", location: "11218", bio: "more good stuff",
 user3 = User.create(name: "matthew", location: "11211", bio: "yeah", password: "a", password_confirmation: "a")
 
 
+
 user1.build_host
 user1.build_guest
 user1.save
