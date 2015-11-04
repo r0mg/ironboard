@@ -11,6 +11,7 @@ user1 = User.create(name: "Reuben", location: "11218", bio: "good stuff",
 user2 = User.create(name: "Roslynn", location: "11218", bio: "more good stuff", 
 	img_url: "board#{rand(1..10)}.jpeg", password: "password", password_confirmation: "password")
 
+
 user1.build_host
 user1.build_guest
 user1.save
