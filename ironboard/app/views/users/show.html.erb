@@ -30,5 +30,7 @@ Events <%= @user.name %> is hosting:
 </ul> 
 <br>
 <br>
-<%= link_to 'Edit', edit_user_path(@user) %> |
+<% if @user==current_user %>
+	<%= link_to 'Edit', edit_user_path(@user) %> |
+<% end %>
 <%= link_to 'Back', users_path %>

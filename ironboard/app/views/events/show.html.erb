@@ -45,9 +45,11 @@
   </p>
 </div>
 
-<div>
-<%= button_to "Attend Event", rsvp_path %>
-</div>
+<% if @event.host.user!=current_user %>
+  <div>
+  <%= button_to "Attend Event", rsvp_path %>
+  </div>
+<% end %>
 
 <div>
   <% if !@event.guests.empty? %>
@@ -63,7 +65,10 @@
     <% end %>
   </ul>
 </div>
-<div>
-<%= link_to "Edit", edit_event_path(@event) %>
-</div>
+
+<% if @event.host.user == current_user %>
+  <div>
+  <%= link_to "Edit", edit_event_path(@event) %>
+  </div>
+<% end %>
 
