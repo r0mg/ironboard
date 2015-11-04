@@ -6,8 +6,8 @@
 
 <div class="event-top-info">
   
-  <% @gif_urls.each do |gif_url| %>
-    <embed src="<%= gif_url %>">
+  <% @event.tags.each do |tag| %>
+    <a href="/tags/<%= tag.id %>"><img src="<%= tag.giphy_url %>"> </a>
   <% end %>
 
   <h3>

@@ -18,11 +18,12 @@ before_action :user_authorized, except: [:index,:show]
 
   def show
     @event = Event.find(params[:id])
-    giphy_client = Adapters::GiphyClient.new
-    @gif_urls = []
-    @event.tags.each do |tag|
-      @gif_urls << giphy_client.find_by_tag(tag.name.gsub(' ','+'))
-    end
+    # giphy_client = Adapters::GiphyClient.new
+    # @tags = @event.tags
+    # @gif_urls = []
+    # @event.tags.each do |tag|
+      # @gif_urls << giphy_client.find_by_tag(tag.name.gsub(' ','+'))
+    # end
   end
 
   def edit

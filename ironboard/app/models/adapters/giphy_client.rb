@@ -8,7 +8,7 @@ module Adapters
 		def find_by_tag(tag_name)
 			results = connection.query(tag_name)
 			random_gif = results.data.sample
-			random_gif.embed_url
+			"https://media.giphy.com/media/#{random_gif.id}/giphy.gif"
 		end
 
 	end
