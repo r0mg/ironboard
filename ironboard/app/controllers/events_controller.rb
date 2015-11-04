@@ -40,7 +40,7 @@ before_action :user_authorized, except: [:index,:show]
   private
 
   def event_params
-    params.require(:event).permit(:title, :day, :start_time, :end_time, :description, :location)
+    params.require(:event).permit(:title, :day, :start_time, :end_time, :description, :location, tag_ids: [], tags_attributes: [:name])
   end
   
 end
