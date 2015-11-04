@@ -57,7 +57,7 @@
   <ul>
     <% @event.guests.each do |guest| %>
     <li>
-      <%= guest.user.name %>
+      <%= link_to guest.user.name,user_path(guest.user) %>
     </li>
                  <% end %>
     <% end %>
