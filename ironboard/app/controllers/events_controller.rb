@@ -3,6 +3,7 @@ before_action :user_authorized, except: [:index,:show]
 
   def index
     @events = Event.all
+    @events = @events.sort_by { |event| event.day }
   end
 
   def new
