@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-before_action :user_authorized, except: [:index,:show]
+  before_action :user_authorized, except: [:index,:show]
 
   def index
     @events = Event.all
@@ -11,7 +11,7 @@ before_action :user_authorized, except: [:index,:show]
 
   def create
     event = Event.new(event_params)
-    event.host = current_user.host
+    event.host = current_user.host  
     event.save
     redirect_to event_path(event)
   end
@@ -28,6 +28,10 @@ before_action :user_authorized, except: [:index,:show]
 
   def edit
     @event = Event.find(params[:id])
+    if !permission_to_edit?(@event.host.user)
+      flash[:notice] = "You do not have permission to edit this event."
+      render 'show'
+    end
   end
 
   def update

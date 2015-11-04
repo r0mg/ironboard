@@ -27,6 +27,10 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    if !permission_to_edit?(@user)
+      flash[:notice] = "You do not have permission to edit this user."
+      render 'show'
+    end
   end
 
   def update
