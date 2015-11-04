@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :events, except: :destroy
   resources :users, except: :destroy
-  resources :tags, only: [:index, :create]
+  resources :tags, only: [:index, :show]
 
   get '/' => 'application#root', as: 'root'
   get '/login' => 'sessions#login'

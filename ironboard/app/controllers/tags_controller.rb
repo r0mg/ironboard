@@ -4,7 +4,8 @@ class TagsController < ApplicationController
     @tags = Tag.all
   end
 
-  def create
+  def show
+    @tag = Tag.find(params[:id])
   end
 
 end
