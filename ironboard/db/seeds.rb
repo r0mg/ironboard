@@ -1,4 +1,4 @@
-Rake::Task["db:reset"] 
+# Rake::Task["db:reset"] 
 
 User.delete_all
 Event.delete_all
@@ -40,8 +40,8 @@ user3.build_host
 user3.build_guest
 user3.save
 
-event1 = user1.host.events.create(title: "Pizza Party", location: "Flatiron", day: "2015-11-07", start_time: "14:00", end_time: "16:00")
-event2 = user2.host.events.create(title: "Ping Pong Whiskey", location: "Flatiron", day: "2015-11-09", start_time: "18:00", end_time: "21:00")
+event1 = user1.host.events.create(title: "Pizza Party", location: "Flatiron", day: Date.tomorrow, start_time: "14:00", end_time: "16:00")
+event2 = user2.host.events.create(title: "Ping Pong Whiskey", location: "Flatiron", day: Date.today, start_time: "18:00", end_time: "21:00")
 
 
 event_suffixes = ['potluck','hangout','dance party','trip','bonanza','tournament']
@@ -50,11 +50,11 @@ tag_names = ['pizza','whiskey','cats','dogs','school','books','naptime','wut']
 	event = User.all.sample.host.events.build
 	event.title = [Faker::App.name,Faker::Hacker.adjective,Faker::Hacker.noun,event_suffixes.sample].join(' ')
 	event.location = Faker::Address.zip
-	event.day = Faker::Date.between(7.days.ago, Date.today)
-	event.start_time = "#{rand(0..20)}:00"
-	event.end_time = event.start_time+rand(60*60*4)
+	event.day = Faker::Date.between(7.days.ago, Date.today+7)
+	event.start_time = "#{rand(10..20)}:00"
+	event.end_time = event.start_time+rand(60*60*0.5 .. 60*60*4)
 	event.save
-	event.tags.create(name: tag_names.sample)
+	event.tags << Tag.find_or_create_by(name: tag_names.sample)
 end
 
 event1.tags.create(name: "pizza")
@@ -74,5 +74,4 @@ User.all.each do |user|
 		end
 	end
 end
-# EventTag.create(event_id: 1, tag_id: 1)
-# EventTag.create(event_id: 2, tag_id: 2)
+
