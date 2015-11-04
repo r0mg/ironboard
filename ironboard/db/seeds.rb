@@ -74,6 +74,5 @@ User.all.each do |user|
 		end
 	end
 end
-binding.pry
 # EventTag.create(event_id: 1, tag_id: 1)
 # EventTag.create(event_id: 2, tag_id: 2)
