@@ -7,7 +7,7 @@
 <%= image_tag @user.img_url , size: "90", alt: "user_avatar" %>
 
 <br>
-
+<% if !@user.guest.events.empty? %>
 Events <%= @user.name %> is attending:
 <ul>
 <% @user.guest.events.each do |event| %>
@@ -15,6 +15,7 @@ Events <%= @user.name %> is attending:
 	<%= event.title %>: <%= event.description %> (<%= event.day %>) <br>
 	</li>
 <% end %>
+<%end %>
 </ul>
 <br>
 <br>
