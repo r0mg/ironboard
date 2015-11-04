@@ -12,7 +12,7 @@ Events <%= @user.name %> is attending:
 <ul>
   <% @user.guest.events.each do |event| %>
 	 <li>
-	 <%= event.title %>: <%= event.description %> (<%= event.day %>) <br>
+	 <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
 	 </li>
     <% end %>
   <% else %>
