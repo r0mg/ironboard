@@ -22,9 +22,11 @@ user2.save
 event1 = user1.host.events.create(title: "Pizza Party", location: "Flatiron", day: "2015-11-07", start_time: "14:00", end_time: "16:00")
 event2 = user2.host.events.create(title: "Ping Pong Whiskey", location: "Flatiron", day: "2015-11-09", start_time: "18:00", end_time: "21:00")
 
+event1.tags.create(name: "pizza")
+event1.tags.create(name: "awesome")
 
-Tag.create(name: "Food")
-Tag.create(name: "Funtimes")
+event2.tags.create(name: "ping pong")
+event2.tags.create(name: "whiskey")
 
 user1.guest.events << event2
 user2.guest.events << event1
