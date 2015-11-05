@@ -12,8 +12,11 @@ class EventsController < ApplicationController
   def create
     event = Event.new(event_params)
     event.host = current_user.host  
-    event.save
-    redirect_to event_path(event)
+    if event.save
+      redirect_to event_path(event)
+    else
+      redirect_to new_event_path
+    end
   end
 
   def show
