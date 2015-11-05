@@ -1,16 +1,19 @@
-<div class="containter">
+<div class="container">
 <% if flash[:notice] %>
    <br><div class="notice"><%= flash[:notice] %></div>
  <% end %>
 
 <!-- USER INFO-->
-<h2><%= @user.name %></h2>
-<%= image_tag @user.img_url , size: "90", alt: "user_avatar" %>
-<br><br>
+<center>
+  <h1><%= @user.name %></h1>
+  <%= image_tag @user.img_url , size: "100", alt: "user_avatar" %>
+</center>
+
+<!-- BEGIN USER NAV BAR -->
 
 <div class="container">
 
-<!-- USER NAV BAR ITEMS -->
+<!-- USER NAV BAR PILLS -->
 
 <ul class="nav nav-pills">
   <li class="active"><a href="#profile" data-toggle="tab" aria-expanded="true">Profile</a></li>
@@ -94,12 +97,11 @@
         </li>
     <%end %>                  
   </div>  
-
 </div>
-<br><br><br><br><br><br>
 
-  
+<br>
 
+<!-- END OF USER NAV BAR -->
 
 
 <% if @user==current_user %>
