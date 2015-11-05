@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   before_action :user_authorized, except: [:index,:show]
 
   def index
-    @events = Event.all
+    @events = Event.sort_by_day
   end
 
   def new
@@ -10,13 +10,17 @@ class EventsController < ApplicationController
   end
 
   def create
-    event = Event.new(event_params)
-    event.host = current_user.host  
-    if event.save
-      redirect_to event_path(event)
-    else
-      redirect_to new_event_path
-    end
+    @event = Event.new(event_params)
+    @event.host = current_user.host
+    @event.title = @event.title.capitalize 
+      if  @event.validate_day? && @event.save
+        redirect_to event_path(event)
+      elsif !@event.validate_day?
+          flash[:notice] = "Invalid date"
+          redirect_to new_event_path , notice: "Invalid date"
+      elsif !@event.save
+          render 'new'
+      end
   end
 
   def show
@@ -43,8 +47,10 @@ class EventsController < ApplicationController
     redirect_to event_path(event)
   end
 
+
   private
 
+  
   def event_params
     params.require(:event).permit(:title, :day, :start_time, :end_time, :description, :location, tag_ids: [], tags_attributes: [:name])
   end

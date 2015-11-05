@@ -12,6 +12,7 @@
 
 Events <%= @user.name %> will be attending:
 <ul>
+
 <% @user.guest.upcoming_events.each do |event| %>
 	<li>
 	<%= event.title %>: <%= event.description %> (<%= event.day %>) <br>
@@ -52,3 +53,4 @@ Events <%= @user.name %> has hosted:
 <br>
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
+
