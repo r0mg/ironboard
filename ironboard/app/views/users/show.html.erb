@@ -32,7 +32,7 @@ Events <%= @user.name %> will be hosting:
 <br>
 Events <%= @user.name %> has attended:
 <ul>
-<% @user.guest.past_events.each do |event| %>
+<% @user.guest.attended_events.each do |event| %>
   <li>
   <%= event.title %>: <%= event.description %> (<%= event.day %>) <br>
   </li>
@@ -42,7 +42,7 @@ Events <%= @user.name %> has attended:
 <br>
 Events <%= @user.name %> has hosted:
 <ul>
-<% @user.host.past_events.each do |event| %>
+<% @user.host.attended_events.each do |event| %>
   <li>
   <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
   </li>
