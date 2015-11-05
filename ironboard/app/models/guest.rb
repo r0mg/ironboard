@@ -9,4 +9,12 @@ class Guest < ActiveRecord::Base
     Rating.create(event_id: event.id, stars: rating, guest_id: self.id)
   end
 
+  def past_events
+    self.events.past
+  end
+
+  def upcoming_events
+    self.events.upcoming
+  end
+
 end
