@@ -22,7 +22,7 @@ Events <%= @user.name %> is attending:
   <%end %>
 </ul>
 <br>
-
+<br>
 <% if !@user.host.events.empty? %>
 Events <%= @user.name %> is hosting:
 <ul>
@@ -32,11 +32,12 @@ Events <%= @user.name %> is hosting:
   </li>
     <% end %>
   <% else %>
-  <%= @user.name %> is currently not attending any events. Boooring!
+  <%= @user.name %> is currently not hosting any events.
   <%end %>
 </ul> 
 <br>
 <br>
+<% if !@user.guest.past_events.empty? %>
 Events <%= @user.name %> has attended:
 <ul>
 <% @user.guest.past_events.each do |event| %>
@@ -44,15 +45,22 @@ Events <%= @user.name %> has attended:
   <%= link_to event.title,event_path() %>: <%= event.description %> (<%= event.day %>) <br>
   </li>
 <% end %>
+<% else %>
+  <%= @user.name %> has not attended any events.
+<% end %>
 </ul>
 <br>
 <br>
+<% if !@user.host.past_events.empty? %>
 Events <%= @user.name %> has hosted:
 <ul>
 <% @user.host.past_events.each do |event| %>
   <li>
   <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
   </li>
+<% end %>
+<% else %>
+  <%= @user.name %> has not hosted any events.
 <% end %>
 </ul> 
 <br>
