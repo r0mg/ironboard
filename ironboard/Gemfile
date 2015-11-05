@@ -44,7 +44,7 @@ group :development, :test do
 end
 
 # gem "awesome_print", require:"ap"
-# gem "meta_request"
+ gem "meta_request"
 
 # gem 'quiet_assets', group: :development
 group :development do

@@ -10,27 +10,17 @@ class EventsController < ApplicationController
   end
 
   def create
-<<<<<<< HEAD
     @event = Event.new(event_params)
     @event.host = current_user.host
-    @event.title = @event.title.capitalize
+    @event.title = @event.title.capitalize 
       if  @event.validate_day? && @event.save
-        redirect_to event_path(@event)
+        redirect_to event_path(event)
       elsif !@event.validate_day?
           flash[:notice] = "Invalid date"
           redirect_to new_event_path , notice: "Invalid date"
-       elsif !@event.save
-        render 'new'
+      elsif !@event.save
+          render 'new'
       end
-=======
-    event = Event.new(event_params)
-    event.host = current_user.host  
-    if event.save
-      redirect_to event_path(event)
-    else
-      redirect_to new_event_path
-    end
->>>>>>> be4d37dbf83e8e08df76a716aaef37af6a818d69
   end
 
   def show

@@ -12,12 +12,8 @@
 
 Events <%= @user.name %> will be attending:
 <ul>
-<<<<<<< HEAD
 
-<% @user.guest.events.sort_by_day.each do |event| %>
-=======
 <% @user.guest.upcoming_events.each do |event| %>
->>>>>>> be4d37dbf83e8e08df76a716aaef37af6a818d69
 	<li>
 	<%= event.title %>: <%= event.description %> (<%= event.day %>) <br>
 	</li>
@@ -27,9 +23,6 @@ Events <%= @user.name %> will be attending:
 <br>
 Events <%= @user.name %> will be hosting:
 <ul>
-<<<<<<< HEAD
-<% @user.host.events.sort_by_day.each do |event| %>
-=======
 <% @user.host.upcoming_events.each do |event| %>
   <li>
   <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
@@ -51,7 +44,6 @@ Events <%= @user.name %> has attended:
 Events <%= @user.name %> has hosted:
 <ul>
 <% @user.host.past_events.each do |event| %>
->>>>>>> be4d37dbf83e8e08df76a716aaef37af6a818d69
   <li>
   <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
   </li>
@@ -61,3 +53,4 @@ Events <%= @user.name %> has hosted:
 <br>
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
+

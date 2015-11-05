@@ -5,11 +5,6 @@ class Guest < ActiveRecord::Base
   has_many :rsvps
   has_many :events, through: :rsvps
 
-<<<<<<< HEAD
-
-
-    
-=======
   include GuestHostMethods
 
   def rate(event, rating)
@@ -22,5 +17,4 @@ class Guest < ActiveRecord::Base
     Rating.find_by(guest_id: user.id, event_id: event.id)
   end
 
->>>>>>> be4d37dbf83e8e08df76a716aaef37af6a818d69
 end

@@ -16,6 +16,7 @@ class UsersController < ApplicationController
     @user.build_guest
     @user.name = @user.name.capitalize
     if @user.save
+      # binding.pry
       session[:user_id] = @user.id
       redirect_to user_path(@user)
     else 
