@@ -1,0 +1,30 @@
+<h1>Events you have attended</h1>
+
+<div>
+  <table>
+    <% @attended_events.each do |event| %>
+      <tr>
+        <td><%= link_to event.title, event_path(event) %></td>
+        <td>
+          <%= form_for(@rating, url: "/events/#{event.id}/rate") do |f| %>
+           | <%= f.label :stars %>
+            <%= f.select :stars, (1..5) %>
+        </td>
+      <tr>
+        <td>
+          <%= f.label :feedback %>
+          <%= f.text_field :feedback %>
+        <td> | <% if current_user.guest.rated?(current_user.guest, event) %>
+          You gave this event <%= current_user.guest.rating(event) %> stars!
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td><br><%= f.submit "Rate this event!" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
