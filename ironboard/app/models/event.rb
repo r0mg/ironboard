@@ -4,10 +4,22 @@ class Event < ActiveRecord::Base
 	has_many :event_tags
 	has_many :tags, through: :event_tags
 	belongs_to :host
+  has_many :ratings
   accepts_nested_attributes_for :tags, reject_if: lambda {|attributes| attributes['name'].blank?}
-  #validations 
+  validates_presence_of :title, :day, :location, :start_time
 
-  # starts_at and ends_at can be refactored as view object methods?
+  def self.upcoming
+    self.all.where("day > ?", Date.today)
+  end
+
+  def self.past
+    self.all.where("day < ?", Date.today)
+  end
+
+  def average_rating
+      (ratings.map {|rating| rating.stars}.inject(:+).to_f / ratings.count).round(0.5)
+  end
+
   def starts_at
   	am_pm = "AM"
 		if self.start_time.hour>=12

@@ -39,6 +39,15 @@ class UsersController < ApplicationController
     redirect_to user_path(user)
   end
 
+  def attended_events
+    @rating = Rating.new
+    @attended_events = current_user.guest.past_events
+  end
+
+  def hosted_events
+    @hosted_events = current_user.host.past_events
+  end
+
   private
 
   def user_params

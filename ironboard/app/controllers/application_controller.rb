@@ -8,7 +8,13 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :user_signed_in?, :user_authorized, :permission_to_edit?
 
   def root
-  	render 'layouts/index'
+  	if current_user
+  		@user = current_user
+  		render 'users/show'
+  	else
+  		@events = Event.all
+  		render 'events/index'
+  	end
   end
 
 end
