@@ -39,6 +39,11 @@ class UsersController < ApplicationController
     redirect_to user_path(user)
   end
 
+  def attended_events
+    @user = User.find(params[:id])
+    @attended_events = @user.guest.attended_events
+  end
+
   private
 
   def user_params

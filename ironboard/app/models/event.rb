@@ -17,11 +17,7 @@ class Event < ActiveRecord::Base
   end
 
   def average_rating
-    if ratings.count > 0
       (ratings.map {|rating| rating.stars}.inject(:+).to_f / ratings.count).round(0.5)
-    else
-      "Not yet rated"
-    end
   end
 
   def starts_at

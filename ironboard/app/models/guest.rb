@@ -6,10 +6,12 @@ class Guest < ActiveRecord::Base
   has_many :events, through: :rsvps
 
   def rate(event, rating)
-    Rating.create(event_id: event.id, stars: rating, guest_id: self.id)
+    if self.past_events.include?(event)
+      Rating.create(event_id: event.id, stars: rating, guest_id: self.id)
+    end
   end
 
-  def past_events
+  def attended_events
     self.events.past
   end
 
