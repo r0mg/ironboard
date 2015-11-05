@@ -1,76 +1,67 @@
-<% @view_object = EventViewObject.new(@event) %>
+<div class="container">
+  <% @view_object = EventViewObject.new(@event) %>
 
-<% if flash[:notice] %>
-   <div class="notice"><%= flash[:notice] %></div>
- <% end %>
+  <% if flash[:notice] %>
+     <div class="notice"><%= flash[:notice] %></div>
+   <% end %>
 
-<h1><%= @event.title %></h1>
+   <div class="row">
+    <div class="col-xs-8">
+      <div class="jumbotron">
+        <h1><%= @event.title %>
+          <% if @event.host.user == current_user %>
+            <a href="<%= edit_event_path(@event) %>" class="btn btn-primary btn-sm">Edit Event</a>            
+          <% end %>
+        </h1>
+        <p> 
+          Hosted by: <%= link_to @event.host.user.name,user_path(@event.host.user) %>!
+          <br><br>
+          Date: <%= @event.day %>, <%= @view_object.starts_at %> to <%= @view_object.ends_at %>
+          at <%= @event.location %>, NYC
+        </p>
+        
 
-<div class="event-top-info">
-  <% @event.tags.each do |tag| %>
-    <a href="/tags/<%= tag.id %>"><img style="height:150px;width:auto;" src="<%= tag.giphy_url %>"> </a>
-  <% end %>
-    
-  <h3>
-    Day of event: <%= @event.day %>
-  </h3>
-  <ul>
-    <li>
-      Starts at <%= @view_object.starts_at %>
-    </li>
-    <li>
-      Ends at <%= @view_object.ends_at %>
-    </li>
-    <li>
-      Located: <%= @event.location %>
-    </li>
-  </ul>
-
-<iframe
-  width="400"
-  height="300"
-  frameborder="0" style="border:0"
-  src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyDmdPRiBHOWqZOBU1FeaJDhi6IkE-MYst8
-    &origin=place_id:ChIJfSpRxqVZwokRbhDqemhazdA&destination=<%=@event.location %>,New York+NY" allowfullscreen>
-</iframe>
-
-
-
-</div>
-<div class="event-more-info">
-  <p>
-    <%= @event.description %>
-  </p>
-  <p>
-    Hosted by: <%= link_to @event.host.user.name,user_path(@event.host.user) %>!
-  </p>
-</div>
-
-<% if current_user && @event.host.user!=current_user %>
-  <div>
-  <%= button_to "Attend Event", rsvp_path %>
+        <% if current_user && @event.host.user!=current_user %>
+          <%= @view_object.guests_attending %> 
+            <% @event.guests.each do |guest| %>
+              <%= link_to guest.user.name,user_path(guest.user) %>
+              <%= ', ' if guest!=@event.guests.last %>
+            <% end %>
+          <br><br>
+          <a href="<%= rsvp_path %>" class="btn btn-primary btn-sm">Attend Event!</a>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-xs-4">
+      <iframe
+        width="auto"
+        height="380"
+        frameborder="0" style="border:0"
+        src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyDmdPRiBHOWqZOBU1FeaJDhi6IkE-MYst8
+          &origin=place_id:ChIJfSpRxqVZwokRbhDqemhazdA&destination=<%=@event.location %>,New York+NY" allowfullscreen>
+      </iframe>
+    </div>
   </div>
-<% end %>
 
-<div>
-  <% if !@event.guests.empty? %>
-  <p>
 
-    <%=@event.guests.count%> guest(s) attending:
-  </p>
-  <ul>
-    <% @event.guests.each do |guest| %>
-    <li>
-      <%= link_to guest.user.name,user_path(guest.user) %>
-    </li>
-                 <% end %>
+  <div class="event-top-info">
+    <% @event.tags.each do |tag| %>
+      <div class="row">
+        <div class="col-xs-4">
+          <div class="tag_giphy">
+            <p class="giphy_text"><%= tag.name.upcase %> </p>
+            <a href="/tags/<%= tag.id %>"><img style="height:150px;width:auto;" src="<%= tag.giphy_url %>"> </a>
+          </div>
+        </div>
+      </div>
     <% end %>
-  </ul>
-</div>
-
-<% if @event.host.user == current_user %>
-  <div>
-  <%= link_to "Edit", edit_event_path(@event) %>
+      
   </div>
-<% end %>
 
+  <div class="event-more-info">
+    <p>
+      <%= @event.description %>
+    </p>
+  </div>
+
+</div>
