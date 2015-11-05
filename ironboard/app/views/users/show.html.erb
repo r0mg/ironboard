@@ -13,7 +13,7 @@
 Events <%= @user.name %> will be attending:
 <ul>
 
-<% @user.guest.upcoming_events.each do |event| %>
+<% @user.guest.upcoming_events.sort_by_day.each do |event| %>
 	<li>
 	<%= event.title %>: <%= event.description %> (<%= event.day %>) <br>
 	</li>
@@ -23,7 +23,7 @@ Events <%= @user.name %> will be attending:
 <br>
 Events <%= @user.name %> will be hosting:
 <ul>
-<% @user.host.upcoming_events.each do |event| %>
+<% @user.host.upcoming_events.sort_by_day.each do |event| %>
   <li>
   <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
   </li>
@@ -33,7 +33,7 @@ Events <%= @user.name %> will be hosting:
 <br>
 Events <%= @user.name %> has attended:
 <ul>
-<% @user.guest.past_events.each do |event| %>
+<% @user.guest.past_events.sort_by_day.each do |event| %>
   <li>
   <%= event.title %>: <%= event.description %> (<%= event.day %>) <br>
   </li>
@@ -43,7 +43,7 @@ Events <%= @user.name %> has attended:
 <br>
 Events <%= @user.name %> has hosted:
 <ul>
-<% @user.host.past_events.each do |event| %>
+<% @user.host.past_events.sort_by_day.each do |event| %>
   <li>
   <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
   </li>
