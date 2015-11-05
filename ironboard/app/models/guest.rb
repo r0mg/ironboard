@@ -13,4 +13,8 @@ class Guest < ActiveRecord::Base
     end
   end
 
+  def rated?(user, event)
+    Rating.find_by(guest_id: user.id, event_id: event.id)
+  end
+
 end

@@ -11,6 +11,11 @@
             <%= f.select :stars, (1..5) %>
             <%= f.submit "Rate this event!" %>
           <% end %>
+        </td>
+        <td> | <% if current_user.guest.rated?(current_user.guest, event) %>
+          You gave this event <%= current_user.guest.rating(event) %> stars! |
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </table>
