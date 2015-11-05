@@ -41,7 +41,11 @@ class UsersController < ApplicationController
 
   def attended_events
     @rating = Rating.new
-    @attended_events = current_user.guest.attended_events
+    @attended_events = current_user.guest.past_events
+  end
+
+  def hosted_events
+    @hosted_events = current_user.host.past_events
   end
 
   private

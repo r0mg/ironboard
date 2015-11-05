@@ -1,6 +1,6 @@
 module GuestHostMethods
 
-  def attended_events
+  def past_events
     self.events.past
   end
 
