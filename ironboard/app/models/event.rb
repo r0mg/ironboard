@@ -4,6 +4,7 @@ class Event < ActiveRecord::Base
 	has_many :event_tags
 	has_many :tags, through: :event_tags
 	belongs_to :host
+<<<<<<< HEAD
   validates_presence_of :title, :day
 
   def self.sort_by_day
@@ -15,6 +16,44 @@ class Event < ActiveRecord::Base
     self.day >= Date.today
   end 
 
+=======
+  has_many :ratings
+>>>>>>> be4d37dbf83e8e08df76a716aaef37af6a818d69
   accepts_nested_attributes_for :tags, reject_if: lambda {|attributes| attributes['name'].blank?}
-  #validations 
+  validates_presence_of :title, :day, :location, :start_time
+
+  def self.upcoming
+    self.all.where("day > ?", Date.today)
+  end
+
+  def self.past
+    self.all.where("day < ?", Date.today)
+  end
+
+  def average_rating
+      (ratings.map {|rating| rating.stars}.inject(:+).to_f / ratings.count).round(0.5)
+  end
+
+  def starts_at
+  	am_pm = "AM"
+		if self.start_time.hour>=12
+			am_pm = "PM" 
+		end
+		hour = "#{self.start_time.hour%12}"
+  	minutes = "#{self.start_time.min}"
+  	minutes = '0'+minutes if minutes.length == 1
+  	"#{hour}:#{minutes} #{am_pm}"
+  end
+
+	def ends_at
+		am_pm = "AM"
+  	if self.end_time.hour>12
+			am_pm = "PM" 
+		end
+		hour = "#{self.end_time.hour%12}"
+  	minutes = "#{self.end_time.min}"
+  	minutes = '0'+minutes if minutes.length == 1
+  	"#{hour}:#{minutes} #{am_pm}"
+  end
+
 end

@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<% if flash[:notice] %>
+   <br><div class="notice"><%= flash[:notice] %></div>
+ <% end %>
 
 <h2> User Name: <%= @user.name %> </h2>
 
@@ -8,10 +10,14 @@
 
 <br>
 
-Events <%= @user.name %> is attending:
+Events <%= @user.name %> will be attending:
 <ul>
+<<<<<<< HEAD
 
 <% @user.guest.events.sort_by_day.each do |event| %>
+=======
+<% @user.guest.upcoming_events.each do |event| %>
+>>>>>>> be4d37dbf83e8e08df76a716aaef37af6a818d69
 	<li>
 	<%= event.title %>: <%= event.description %> (<%= event.day %>) <br>
 	</li>
@@ -19,9 +25,33 @@ Events <%= @user.name %> is attending:
 </ul>
 <br>
 <br>
-Events <%= @user.name %> is hosting:
+Events <%= @user.name %> will be hosting:
 <ul>
+<<<<<<< HEAD
 <% @user.host.events.sort_by_day.each do |event| %>
+=======
+<% @user.host.upcoming_events.each do |event| %>
+  <li>
+  <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
+  </li>
+<% end %>
+</ul> 
+<br>
+<br>
+Events <%= @user.name %> has attended:
+<ul>
+<% @user.guest.past_events.each do |event| %>
+  <li>
+  <%= event.title %>: <%= event.description %> (<%= event.day %>) <br>
+  </li>
+<% end %>
+</ul>
+<br>
+<br>
+Events <%= @user.name %> has hosted:
+<ul>
+<% @user.host.past_events.each do |event| %>
+>>>>>>> be4d37dbf83e8e08df76a716aaef37af6a818d69
   <li>
   <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
   </li>

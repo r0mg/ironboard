@@ -33,12 +33,25 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    if !permission_to_edit?(@user)
+      flash[:notice] = "You do not have permission to edit this user."
+      render 'show'
+    end
   end
 
   def update
     user = User.find(params[:id])
     user.update(user_params)
     redirect_to user_path(user)
+  end
+
+  def attended_events
+    @rating = Rating.new
+    @attended_events = current_user.guest.past_events
+  end
+
+  def hosted_events
+    @hosted_events = current_user.host.past_events
   end
 
   private
