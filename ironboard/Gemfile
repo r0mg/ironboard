@@ -43,10 +43,10 @@ group :development, :test do
   # gem 'byebug'
 end
 
-# gem "awesome_print", require:"ap"
+ gem "awesome_print", require:"ap"
  gem "meta_request"
 
-# gem 'quiet_assets', group: :development
+ gem 'quiet_assets', group: :development
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
