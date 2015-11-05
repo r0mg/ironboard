@@ -52,7 +52,8 @@
 <div>
   <% if !@event.guests.empty? %>
   <p>
-    Guests Attending:
+
+    <%=@event.guests.count%> guest(s) attending:
   </p>
   <ul>
     <% @event.guests.each do |guest| %>

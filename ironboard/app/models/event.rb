@@ -8,6 +8,9 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :tags, reject_if: lambda {|attributes| attributes['name'].blank?}
   validates_presence_of :title, :day, :location, :start_time
 
+
+    
+
   def self.upcoming
     self.all.where("day > ?", Date.today)
   end
