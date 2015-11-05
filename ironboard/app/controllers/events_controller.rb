@@ -25,6 +25,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    
     # giphy_client = Adapters::GiphyClient.new
     # @tags = @event.tags
     # @gif_urls = []

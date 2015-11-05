@@ -9,38 +9,51 @@
 <%= image_tag @user.img_url , size: "90", alt: "user_avatar" %>
 
 <br>
-
-Events <%= @user.name %> will be attending:
+<% if !@user.guest.events.empty? %>
+Events <%= @user.name %> is attending:
 <ul>
-
-<% @user.guest.upcoming_events.sort_by_day.each do |event| %>
-	<li>
-	<%= event.title %>: <%= event.description %> (<%= event.day %>) <br>
-	</li>
-<% end %>
-</ul>
-<br>
-<br>
-Events <%= @user.name %> will be hosting:
-<ul>
-<% @user.host.upcoming_events.sort_by_day.each do |event| %>
+  <% @user.guest.upcoming_events.sort_by_day.each do |event| %>
   <li>
   <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
   </li>
-<% end %>
+    <% end %>
+  <% else %>
+  <%= @user.name %> is currently not attending any events. Boooring!
+  <%end %>
+                
+</ul>
+<br>
+<br>
+<% if !@user.host.events.empty? %>
+Events <%= @user.name %> is hosting:
+<ul>
+  <% @user.host.upcoming_events.sort_by_day.each do |event| %>
+
+  <li>
+  <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
+  </li>
+    <% end %>
+  <% else %>
+  <%= @user.name %> is currently not hosting any events.
+  <%end %>
 </ul> 
 <br>
 <br>
+<% if !@user.guest.past_events.empty? %>
 Events <%= @user.name %> has attended:
 <ul>
 <% @user.guest.past_events.sort_by_day.each do |event| %>
   <li>
-  <%= event.title %>: <%= event.description %> (<%= event.day %>) <br>
+  <%= link_to event.title,event_path() %>: <%= event.description %> (<%= event.day %>) <br>
   </li>
+<% end %>
+<% else %>
+  <%= @user.name %> has not attended any events.
 <% end %>
 </ul>
 <br>
 <br>
+<% if !@user.host.past_events.empty? %>
 Events <%= @user.name %> has hosted:
 <ul>
 <% @user.host.past_events.sort_by_day.each do |event| %>
@@ -48,9 +61,13 @@ Events <%= @user.name %> has hosted:
   <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
   </li>
 <% end %>
+<% else %>
+  <%= @user.name %> has not hosted any events.
+<% end %>
 </ul> 
 <br>
 <br>
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
 

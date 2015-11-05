@@ -11,7 +11,7 @@ class Event < ActiveRecord::Base
 
 
   def self.upcoming
-    self.all.where("day > ?", Date.today)
+    self.all.where("day >= ?", Date.today)
   end
 
   def self.past
