@@ -12,18 +12,15 @@ class EventsController < ApplicationController
   def create
     event = Event.new(event_params)
     event.host = current_user.host  
-    event.save
-    redirect_to event_path(event)
+    if event.save
+      redirect_to event_path(event)
+    else
+      redirect_to new_event_path
+    end
   end
 
   def show
     @event = Event.find(params[:id])
-    # giphy_client = Adapters::GiphyClient.new
-    # @tags = @event.tags
-    # @gif_urls = []
-    # @event.tags.each do |tag|
-      # @gif_urls << giphy_client.find_by_tag(tag.name.gsub(' ','+'))
-    # end
   end
 
   def edit
