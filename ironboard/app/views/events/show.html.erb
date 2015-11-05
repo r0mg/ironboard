@@ -5,11 +5,10 @@
 <h1><%= @event.title %></h1>
 
 <div class="event-top-info">
-  
   <% @event.tags.each do |tag| %>
     <a href="/tags/<%= tag.id %>"><img style="height:150px;width:auto;" src="<%= tag.giphy_url %>"> </a>
   <% end %>
-
+    
   <h3>
     Day of event: <%= @event.day %>
   </h3>
