@@ -40,8 +40,8 @@ class UsersController < ApplicationController
   end
 
   def attended_events
-    @user = User.find(params[:id])
-    @attended_events = @user.guest.attended_events
+    @rating = Rating.new
+    @attended_events = current_user.guest.attended_events
   end
 
   private
