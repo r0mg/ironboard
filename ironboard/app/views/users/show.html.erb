@@ -10,7 +10,8 @@
 
 Events <%= @user.name %> is attending:
 <ul>
-<% @user.guest.events.each do |event| %>
+
+<% @user.guest.events.sort_by_day.each do |event| %>
 	<li>
 	<%= event.title %>: <%= event.description %> (<%= event.day %>) <br>
 	</li>
@@ -20,7 +21,7 @@ Events <%= @user.name %> is attending:
 <br>
 Events <%= @user.name %> is hosting:
 <ul>
-<% @user.host.events.each do |event| %>
+<% @user.host.events.sort_by_day.each do |event| %>
   <li>
   <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
   </li>

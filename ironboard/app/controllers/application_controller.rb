@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
   	render 'layouts/index'
   end
 
-  
   private
 
   def current_user 
