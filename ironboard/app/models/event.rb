@@ -4,6 +4,7 @@ class Event < ActiveRecord::Base
 	has_many :event_tags
 	has_many :tags, through: :event_tags
 	belongs_to :host
+  has_many :ratings
   accepts_nested_attributes_for :tags, reject_if: lambda {|attributes| attributes['name'].blank?}
   validates_presence_of :title, :day, :location, :start_time
 
@@ -13,6 +14,12 @@ class Event < ActiveRecord::Base
 
   def self.past
     self.all.where("day < ?", Date.today)
+  end
+
+  def average_rating
+    if ratings
+      binding.pry
+    end
   end
 
   def starts_at
