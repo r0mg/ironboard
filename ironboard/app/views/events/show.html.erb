@@ -46,7 +46,7 @@
   </p>
 </div>
 
-<% if @event.host.user!=current_user %>
+<% if current_user && @event.host.user!=current_user %>
   <div>
   <%= button_to "Attend Event", rsvp_path %>
   </div>

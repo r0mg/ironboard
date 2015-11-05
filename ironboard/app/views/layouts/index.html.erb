@@ -1,5 +1,7 @@
-<% if user_signed_in? %>
-	<%= current_user.events.each do |event| %>
-		<%= link_to event.name, event_show_path(event) %>
-	<% end %>
+
+<div>
+<h1>Upcoming Events</h1>
+<% @events.each do |event| %>
+  <%= event.day %> | <%= link_to event.title, event_path(event) %><br>
 <% end %>
+</div>

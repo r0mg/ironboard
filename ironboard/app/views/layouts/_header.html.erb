@@ -3,7 +3,7 @@
 <a href="/"> <img style="height:50px;width:50px;" src="<%= image_path 'logo.png' %>"> </a>
 
 <% if current_user %>
-Welcome, <%= current_user.name %> !  
+Welcome, <%= link_to current_user.name, user_path(current_user) %> !  
 <%= link_to "Log Out", logout_path %> |  
 <% else %>
 <%= link_to "Log In", login_path %> | 
