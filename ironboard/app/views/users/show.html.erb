@@ -13,19 +13,17 @@
 <!-- USER NAV BAR ITEMS -->
 
 <ul class="nav nav-pills">
-  <li class="active"><a href="#bio" data-toggle="tab" aria-expanded="true">Bio</a></li>
+  <li class="active"><a href="#profile" data-toggle="tab" aria-expanded="true">Profile</a></li>
   <li class=""><a href="#attending" data-toggle="tab" aria-expanded="false">Attending <span class="badge"><%= @user.guest.upcoming_events.count %></span></a></li>
   <li class=""><a href="#hosting" data-toggle="tab" aria-expanded="true">Hosting <span class="badge"><%= @user.host.upcoming_events.count %></span></a></li>
-
-
   <li class="dropdown">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-      Dropdown <span class="caret"></span>
+      Past Events <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
-      <li><a href="#dropdown1" data-toggle="tab">Action</a></li>
+      <li><a href="#dropdown1" data-toggle="tab">Attended (<%= @user.guest.past_events.count %>)</a></li>
       <li class="divider"></li>
-      <li><a href="#dropdown2" data-toggle="tab">Another action</a></li>
+      <li><a href="#dropdown2" data-toggle="tab">Hosted (<%= @user.host.past_events.count %>)</a></li>
     </ul>
   </li>
 </ul>
@@ -34,121 +32,78 @@
 
 <div id="myTabContent" class="tab-content">
 
-  <div class="tab-pane fade active in" id="bio">
-    <div class="container">
+  <div class="tab-pane fade active in" id="profile">
+    <li class="list-group-item">
       <p class="text-info"><%= @user.bio %></p>
-    </div>
+    </li>
   </div>
 
-    <div class="tab-pane fade" id="attending">
-      <% if !@user.guest.events.empty? %>
-        <% @user.guest.upcoming_events.sort_by_day.each do |event| %>
-          <li class="list-group-item">
-          <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
-          </li>
-          <% end %>
-        <% else %>
-          <li class="list-group-item">
-          Not attending any upcoming events. Lame!
-          </li>
-      <%end %>                  
+  <div class="tab-pane fade" id="attending">
+    <% if !@user.guest.events.empty? %>
+      <% @user.guest.upcoming_events.sort_by_day.each do |event| %>
+        <li class="list-group-item">
+        <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
+        </li>
+        <% end %>
+      <% else %>
+        <li class="list-group-item">
+        Not attending any upcoming events. Lame!
+        </li>
+    <%end %>                  
   </div>
+
+  <div class="tab-pane fade" id="hosting">
+    <% if !@user.host.events.empty? %>
+      <% @user.host.upcoming_events.sort_by_day.each do |event| %>
+        <li class="list-group-item">
+        <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
+        </li>
+        <% end %>
+      <% else %>
+        <li class="list-group-item">
+        Not hosting any upcoming events.
+        </li>
+    <%end %>                  
+  </div>  
+
+  <div class="tab-pane fade" id="dropdown1">
+    <% if !@user.guest.events.empty? %>
+      <% @user.guest.past_events.sort_by_day.each do |event| %>
+        <li class="list-group-item">
+        <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
+        </li>
+        <% end %>
+      <% else %>
+        <li class="list-group-item">
+        No events attended.
+        </li>
+    <%end %>                  
+  </div>
+
+
+  <div class="tab-pane fade" id="dropdown2">
+    <% if !@user.host.events.empty? %>
+      <% @user.host.past_events.sort_by_day.each do |event| %>
+        <li class="list-group-item">
+        <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
+        </li>
+        <% end %>
+      <% else %>
+        <li class="list-group-item">
+        No events hosted.
+        </li>
+    <%end %>                  
+  </div>  
 
 </div>
 <br><br><br><br><br><br>
 
-<A NAME="bio">
-<div class="container">
-<blockquote>
-<p class="text-info"><%= @user.bio %></p>
-</blockquote>
-</div>
-</A>
-
-<div class="container">
-<!-- UPCOMING EVENTS -->
-
-<div class="panel panel-primary">
-  <div class="panel-heading">
-    <h3 class="panel-title">Upcoming Events</h3>
-  </div>
-  <div class="panel-body">
-<!--Attending upcoming events -->
-<% if !@user.guest.events.empty? %>
-  <ul class="list-group">
-    Attending <span class="badge"><%= @user.guest.upcoming_events.count %></span> events:
-
-    <% @user.guest.upcoming_events.sort_by_day.each do |event| %>
-    
-    <li class="list-group-item">
-    <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
-    </li>
   
-<% end %>
-    <% else %>
-    <ul class="list-group">
-    Attending <span class="badge">0</span> events. Lame!
-    <%end %>
-  <br>                  
-  
-<!--Hosting upcoming events -->
-<% if !@user.host.events.empty? %>
-  <ul class="list-group">
-  Hosting <span class="badge"><%= @user.host.upcoming_events.count %></span> events:
 
-  <% @user.host.upcoming_events.sort_by_day.each do |event| %>
 
-  <li class="list-group-item">
-  <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
-  </li>
-  
-<% end %>
-    <% else %>
-    <ul class="list-group">
-    Hosting <span class="badge">0</span> events.
-  <%end %>
-  <br>
-  </div>
-</div>
- 
-</div>
-
-<!--PAST EVENTS-->
-
-<!-- Past events attended -->
-<% if !@user.guest.past_events.empty? %>
-Events <%= @user.name %> has attended:
-<ul>
-<% @user.guest.past_events.sort_by_day.each do |event| %>
-  <li>
-  <%= link_to event.title,event_path() %>: <%= event.description %> (<%= event.day %>) <br>
-  </li>
-<% end %>
-<% else %>
-  <%= @user.name %> has not attended any events.
-<% end %>
-</ul>
-<br>
-<br>
-
-<!-- Past events hosted -->
-<% if !@user.host.past_events.empty? %>
-Events <%= @user.name %> has hosted:
-<ul>
-<% @user.host.past_events.sort_by_day.each do |event| %>
-  <li>
-  <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
-  </li>
-<% end %>
-<% else %>
-  <%= @user.name %> has not hosted any events.
-<% end %>
-</ul> 
-<br>
-<br>
 
 <% if @user==current_user %>
-	<%= link_to 'Edit', edit_user_path(@user) %> |
+	<%= link_to 'Edit Profile', edit_user_path(@user) %> |
 <% end %>
 
 <%= link_to 'Back', users_path %>
