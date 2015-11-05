@@ -1,3 +1,5 @@
+<% @view_object = EventViewObject.new(@event) %>
+
 <% if flash[:notice] %>
    <div class="notice"><%= flash[:notice] %></div>
  <% end %>
@@ -15,13 +17,13 @@
   </h3>
   <ul>
     <li>
-      Starts at <%= @event.starts_at %>
+      Starts at <%= @view_object.starts_at %>
     </li>
     <li>
-      Ends at <%= @event.ends_at %>
+      Ends at <%= @view_object.ends_at %>
     </li>
     <li>
-      Located at <%= @event.location %>
+      Located: <%= @event.location %>
     </li>
   </ul>
 

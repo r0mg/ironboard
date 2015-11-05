@@ -45,7 +45,7 @@ event2 = user2.host.events.create(title: "Ping Pong Whiskey", location: "Flatiro
 
 
 event_suffixes = ['potluck','hangout','dance party','trip','bonanza','tournament']
-tag_names = ['pizza','whiskey','cats','dogs','school','books','naptime','wut']
+tag_names = ['pizza','whiskey','cats','dog computer','school','books','naptime','wut']
 50.times do |i|
 	event = User.all.sample.host.events.build
 	event.title = [Faker::App.name,Faker::Hacker.adjective,Faker::Hacker.noun,event_suffixes.sample].join(' ')
