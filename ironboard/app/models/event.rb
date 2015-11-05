@@ -10,11 +10,6 @@ class Event < ActiveRecord::Base
   validates_presence_of :title, :day, :location, :start_time
 
 
-<<<<<<< HEAD
-    
-
-=======
->>>>>>> origin
   def self.upcoming
     self.all.where("day >= ?", Date.today)
   end
