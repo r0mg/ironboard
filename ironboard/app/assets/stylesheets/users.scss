@@ -3,5 +3,32 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
+h1 {
+    padding-left: 1cm;
+}
 
+table {
+    border-collapse: separate;
+    width: 100%;
+    border: 40px solid white;
+} 
 
+/* unvisited link */
+a:link {
+    color: blue;
+}
+
+/* visited link */
+ a:visited {
+    color: red;
+}
+
+/* mouse over link */
+a:hover {
+    color: green;
+}
+
+/* selected link */
+a:active {
+    color:white;
+} 

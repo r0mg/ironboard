@@ -4,3 +4,6 @@
  *= require united/loader
  *= require united/bootswatch
 */
+p #notice {
+    padding-left: 2cm;
+}
