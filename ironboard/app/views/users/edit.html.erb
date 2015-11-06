@@ -1,12 +1,14 @@
+
+
 <h1>Edit Profile</h1>
 
 <%= form_for(@user) do |f| %>
 <div class="actions">
   <p>
-  <%= f.label :image_url %>
+  <%= f.label :image_url %>:
   <%= f.text_field :img_url %>
   <p>
-  <%= f.label :bio %>
+  <%= f.label :bio %>:
   <%= f.text_area :bio %>
   <br>
   <br>

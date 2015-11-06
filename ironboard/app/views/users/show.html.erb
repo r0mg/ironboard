@@ -106,11 +106,42 @@
 
 
 <% if @user==current_user %>
-	<%= link_to 'Edit Profile', edit_user_path(@user) %> |
+<a href="#myModal" data-toggle="modal">Edit Profile</a> | 
 <% end %>
-
 <%= link_to 'Back', users_path %>
 
+
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+          <h4 class="modal-title">Edit Profile</h4>
+        </div>
+        <div class="modal-body"> <!-- modal body s-->
+        <div class="form-horizontal"> <!-- form-horizontal s-->
+          <%= form_for(@user) do |f| %>
+          <p>
+          <%= f.label :image_url %>:
+          <%= f.text_field :img_url %>
+          <p>
+          <%= f.label :bio %>:
+          <%= f.text_area :bio %>
+          <br>
+          </div> <!-- form-horizontal e-->
+        <div class="modal-footer"> <!-- modal footer s-->
+        <%= button_to "UPDATE PROFILE", user_path %>
+          <%end %>
+        </div> <!-- modal footer e -->
+    </div> <!-- modal body e-->
+  </div> <!-- modal content e-->
+</div> <!-- modal dialogue e-->
 </div>
+</div>
+
+
+
+
+
 
 
