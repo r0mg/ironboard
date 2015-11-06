@@ -74,7 +74,14 @@
     <% if !@user.guest.events.empty? %>
       <% @user.guest.past_events.sort_by_day.each do |event| %>
         <li class="list-group-item">
-        <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <% if @user==current_user %>| <%= link_to 'Rate Event',guest_past_events_path(@user) %><% end %><br>
+        <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) 
+              <% if @user.guest.rated?(@user.guest, event) %>
+                 | User Rating: <%= @user.guest.rating(event) %> out of 5 stars
+                 <% else %>
+                <% if @user==current_user %>| 
+                <%= link_to 'Rate Event',guest_past_events_path(@user) %>
+                <% end %>
+              <% end %><br>
         </li>
         <% end %>
       <% else %>
@@ -89,7 +96,10 @@
     <% if !@user.host.events.empty? %>
       <% @user.host.past_events.sort_by_day.each do |event| %>
         <li class="list-group-item">
-        <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
+        <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>)
+              <% if !event.ratings.empty? %>
+              | Average Attendee Rating: <%= event.average_rating %> out of 5 stars
+              <% end %>
         </li>
         <% end %>
       <% else %>
