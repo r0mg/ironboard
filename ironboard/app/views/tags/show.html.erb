@@ -1,15 +1,17 @@
-<h1><%= @tag.name %></h1>
-<div>
-  <a href="/tags/<%= @tag.id %>"><img style="height:150px;width:auto;" src="<%= @tag.giphy_url %>"> </a>
-</div>
-<h3>Tagged events:</h3>
-<div>
-<table>
-<% @tag.unique_events.each do |event| %>
-  <tr>
-    <td><%= link_to event.title, event_path(event) %></td>
-    <td> | <%= event.day %></td>
-  </tr>
-<% end %>
-</table>
+<div class="container"
+	<h1><%= @tag.name %></h1>
+	<div>
+	  <a href="/tags/<%= @tag.id %>"><img style="height:150px;width:auto;" src="<%= @tag.giphy_url %>"> </a>
+	</div>
+	<h3>Tagged events:</h3>
+	<div>
+	<table>
+	<% @tag.unique_events.each do |event| %>
+	  <tr>
+	    <td><%= link_to event.title, event_path(event) %></td>
+	    <td> | <%= event.day %></td>
+	  </tr>
+	<% end %>
+	</table>
+	</div>
 </div>
