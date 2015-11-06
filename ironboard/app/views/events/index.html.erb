@@ -1,24 +1,17 @@
+<div class="container">
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Events</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-  <tbody>
+<div id="page_title">
+  <h1>Upcoming Events Listing</h1>
+</div>
   
   <% @events.each do |event| %>
-      <tr>
-
-        <td><%= link_to event.title, event %></td> <td><%= event.day %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <%= event.day %><span class="horizontal_space_10px"></span><td><%= link_to event.title, event %>
+    <br>
+  <% end %>
 
 <br>
 
 <%= link_to 'New Event', new_event_path %>
+<br><br>
+</div>

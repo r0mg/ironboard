@@ -6,3 +6,46 @@ textarea {
   height:150px;
   width:90%;
 }
+
+#page_title {
+	border-bottom:3px solid black;
+	margin-bottom: 10px;
+}
+
+.vertical_space_30px {
+	height: 30px;
+}
+
+.horizontal_space_10px {
+	padding: 0px 10px;
+}
+
+.map {
+	width: 100%;
+	height: 300px;
+}
+
+.map iframe{
+	height: 100%;
+	width: 100%;
+  border:3px solid black;
+}
+
+.event_desc {
+  padding-top: 0px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  height: 300px;
+  border:3px solid black;
+}
+
+.jumbotron.event_desc h2 {
+  margin-top: -20px;
+  margin-left: -20px;
+  margin-right: -20px;
+  border-bottom:3px solid black;
+}
+
+.jumbotron.event_desc p {
+  font-size: 13px;
+}

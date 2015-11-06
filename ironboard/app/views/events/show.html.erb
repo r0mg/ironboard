@@ -4,22 +4,24 @@
   <% if flash[:notice] %>
      <div class="notice"><%= flash[:notice] %></div>
    <% end %>
-
+   <div class="vertical_space_30px"></div>
    <div class="row">
     <div class="col-xs-8">
-      <div class="jumbotron">
-        <h1><%= @event.title %>
+      <div class="jumbotron event_desc">
+        <h2><%= @event.title %>
           <% if @event.host.user == current_user %>
             <a href="<%= edit_event_path(@event) %>" class="btn btn-primary btn-sm">Edit Event</a>            
           <% end %>
-        </h1>
+        </h2>
         <p> 
           Hosted by: <%= link_to @event.host.user.name,user_path(@event.host.user) %>!
           <br><br>
           Date: <%= @event.day %>, <%= @view_object.starts_at %> to <%= @view_object.ends_at %>
           at <%= @event.location %>, NYC
         </p>
-        
+        <p>
+          <%= @event.description %>
+        </p>
 
         <% if current_user && @event.host.user!=current_user %>
           <%= @view_object.guests_attending %> 
@@ -32,36 +34,25 @@
         <% end %>
       </div>
     </div>
-    <div class="col-xs-4">
+    <div class="col-xs-4 map">
       <iframe
-        width="auto"
-        height="380"
-        frameborder="0" style="border:0"
+        frameborder="0"
         src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyDmdPRiBHOWqZOBU1FeaJDhi6IkE-MYst8
-          &origin=place_id:ChIJfSpRxqVZwokRbhDqemhazdA&destination=<%=@event.location %>,New York+NY" allowfullscreen>
+          &origin=place_id:ChIJfSpRxqVZwokRbhDqemhazdA&destination=<%=@event.location %>,New York+NY">
       </iframe>
     </div>
   </div>
 
-
-  <div class="event-top-info">
+  <div class="row">
+    <span id="tags_label"><h2> Tags </h2> </span>
     <% @event.tags.each do |tag| %>
-      <div class="row">
-        <div class="col-xs-4">
-          <div class="tag_giphy">
-            <p class="giphy_text"><%= tag.name.upcase %> </p>
-            <a href="/tags/<%= tag.id %>"><img style="height:150px;width:auto;" src="<%= tag.giphy_url %>"> </a>
-          </div>
+      <div class="col-xs-4">
+        <div class="tag_giphy">
+          <p class="giphy_text"><%= tag.name.upcase %> </p>
+          <a href="/tags/<%= tag.id %>"><img src="<%= tag.giphy_url %>"> </a>
         </div>
       </div>
     <% end %>
-      
-  </div>
-
-  <div class="event-more-info">
-    <p>
-      <%= @event.description %>
-    </p>
   </div>
 
 </div>

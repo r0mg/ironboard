@@ -27,7 +27,6 @@ user3 = User.create(name: "matthew", location: "11211", bio: "yeah", password: "
 	user.save
 end
 
-
 user1.build_host
 user1.build_guest
 user1.save
@@ -45,16 +44,26 @@ event2 = user2.host.events.create(title: "Ping Pong Whiskey", location: "Flatiro
 
 
 event_suffixes = ['potluck','hangout','dance party','trip','bonanza','tournament']
-tag_names = ['pizza','whiskey','cats','dog computer','school','books','naptime','wut']
+tag_names = ['ping pong','pizza','whiskey','cats','hacker','school','naptime','dog']
 50.times do |i|
 	event = User.all.sample.host.events.build
-	event.title = [Faker::App.name,Faker::Hacker.adjective,Faker::Hacker.noun,event_suffixes.sample].join(' ')
+	event.title = [Faker::Hacker.adjective.capitalize,
+								 Faker::Hacker.noun.capitalize,
+								 event_suffixes.sample.capitalize].join(' ')
 	event.location = Faker::Address.street_address
 	event.day = Faker::Date.between(7.days.ago, Date.today+7)
 	event.start_time = "#{rand(10..20)}:00"
 	event.end_time = event.start_time+rand(60*60*0.5 .. 60*60*4)
+	description = []
+	10.times{description << Faker::Lorem.sentence}
+	event.description = description.join(' ')
 	event.save
-	event.tags << Tag.find_or_create_by(name: tag_names.sample)
+	while event.tags.count < 3
+		tag = Tag.find_or_create_by(name: tag_names.sample)
+		if !event.tags.include?(tag)
+			event.tags << tag
+		end
+	end
 end
 
 event1.tags.create(name: "pizza")
