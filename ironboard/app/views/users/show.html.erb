@@ -6,12 +6,13 @@
 <!-- USER INFO-->
 <center>
   <h1><%= @user.name %></h1>
-  <%= image_tag @user.img_url , size: "100", alt: "user_avatar" %>
+  <%= image_tag @user.img_url , size: "150", alt: "user_avatar" %>
 </center>
 
 <!-- BEGIN USER NAV BAR -->
 
 <div class="container">
+
 
 <!-- USER NAV BAR PILLS -->
 
@@ -73,7 +74,7 @@
     <% if !@user.guest.events.empty? %>
       <% @user.guest.past_events.sort_by_day.each do |event| %>
         <li class="list-group-item">
-        <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
+        <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <% if @user==current_user %>| <%= link_to 'Rate Event',guest_past_events_path(@user) %><% end %><br>
         </li>
         <% end %>
       <% else %>
@@ -111,4 +112,5 @@
 <%= link_to 'Back', users_path %>
 
 </div>
+
 
