@@ -3,7 +3,7 @@
   <% if flash[:notice] %>
     <div class="notice"><%= flash[:notice] %></div>
   <% end %>
-  <%= form_for @event, html: {class: "form-horizontal"} do |f| %>
+  <%= form_for @event do |f| %>
 
     <% if @event.errors.any? %>
       <div id="error_explanation">
@@ -73,7 +73,12 @@
   </div>
 <div class="container">
   <div class="well panel-primary">
-    <center><h3 class="panel-title"><%= f.submit %><% end %></h3></center>
+    <center>
+    <h3 class="panel-title">
+      <%= f.submit name: "submit" %>
+        <% end %>
+    </h3>
+    </center>
   </div>
 </div>
 

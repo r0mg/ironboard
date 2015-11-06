@@ -1,6 +1,14 @@
-<h1>Editing Event</h1>
-
-<%= render 'form' %>
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Edit Event</h3>
+    </div>
+    <div class="panel-body">
+      You can only edit events you have created.
+    </div>
+  </div>
+</div>
+<%= render 'update' %>
 
 <%= link_to 'Show', @event %> |
 <%= link_to 'Back', events_path %>
