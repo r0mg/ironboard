@@ -27,7 +27,6 @@ user3 = User.create(name: "matthew", location: "11211", bio: "yeah", password: "
 	user.save
 end
 
-
 user1.build_host
 user1.build_guest
 user1.save
@@ -45,7 +44,7 @@ event2 = user2.host.events.create(title: "Ping Pong Whiskey", location: "Flatiro
 
 
 event_suffixes = ['potluck','hangout','dance party','trip','bonanza','tournament']
-tag_names = ['pizza','whiskey','cats','hacker','school','books','naptime','dog']
+tag_names = ['ping pong','pizza','whiskey','cats','hacker','school','naptime','dog']
 50.times do |i|
 	event = User.all.sample.host.events.build
 	event.title = [Faker::Hacker.adjective.capitalize,
