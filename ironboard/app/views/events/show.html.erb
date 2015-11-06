@@ -59,10 +59,19 @@
    <div class="row">
     <div class="col-xs-8">
       <div class="jumbotron event_desc">
-        <h2><%= @event.title %>
-          <% if @event.host.user == current_user %>
-            <a href="<%= edit_event_path(@event) %>" class="btn btn-primary btn-sm">Edit Event</a>            
-          <% end %>
+        <h2>
+          <span class="event_title"> 
+            <%= @event.title.chomp %> 
+            <% if @event.host.user == current_user %>
+              <a href="<%= edit_event_path(@event) %>" class="btn btn-primary btn-sm">Edit Event</a>
+            <% else %>
+              <% if !current_user.guest.events.include?(@event) %>
+                <%= form_tag rsvp_path(@event) %>
+                <button type="submit"class="btn btn-primary btn-sm attend_button">Attend!</button>
+              <% end %>
+            <% end %>
+          </span>
+          
         </h2>
         <p> 
           Hosted by: <%= link_to @event.host.user.name,user_path(@event.host.user) %>!
@@ -75,13 +84,12 @@
         </p>
 
         <% if current_user && @event.host.user!=current_user %>
-          <%= @view_object.guests_attending %> 
+          <%= @view_object.guests_attending %>
             <% @event.guests.each do |guest| %>
               <%= link_to guest.user.name,user_path(guest.user) %>
               <%= ', ' if guest!=@event.guests.last %>
             <% end %>
           <br><br>
-          <a href="<%= rsvp_path %>" class="btn btn-primary btn-sm">Attend Event!</a>
         <% end %>
       </div>
     </div>
@@ -106,5 +114,4 @@
       </div>
     <% end %>
   </div>
-
 </div>

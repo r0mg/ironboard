@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   before_action :user_authorized, except: [:index,:show]
 
   def index
-    @events = Event.sort_by_day
+    @events = Event.upcoming.sort_by_day
   end
 
   def new
