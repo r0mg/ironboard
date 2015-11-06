@@ -7,8 +7,17 @@ textarea {
   width:90%;
 }
 
-.vertical_space_10px {
+#page_title {
+	border-bottom:3px solid black;
+	margin-bottom: 10px;
+}
+
+.vertical_space_30px {
 	height: 30px;
+}
+
+.horizontal_space_10px {
+	padding: 0px 10px;
 }
 
 .map {
