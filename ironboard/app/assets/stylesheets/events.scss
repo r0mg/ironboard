@@ -7,6 +7,14 @@ textarea {
   width:90%;
 }
 
+.event_title form {
+  display: inline;
+}
+.event_title form .attend_button {
+  margin-left: 18px;
+  margin-bottom: 6px;
+}
+
 #page_title {
 	border-bottom:3px solid black;
 	margin-bottom: 10px;
