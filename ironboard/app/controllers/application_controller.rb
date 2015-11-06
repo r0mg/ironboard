@@ -8,8 +8,14 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :user_signed_in?, :user_authorized, :permission_to_edit?
 
   def root
-    @events = Event.upcoming.sort_by_day
-  	render 'layouts/index'
+    # @events = Event.upcoming.sort_by_day
+    if !user_signed_in?
+      @tags = Tag.all
+    	render 'tags/index'
+    else
+      @user = current_user
+      render 'users/show'
+    end
   end
 
   private

@@ -1,12 +1,18 @@
-<h1>Event Tags</h1>
+<div class="container">
 
-<table>
-<% @tags.each do |tag| %>
-  <tr>
-    <td>
-      <h3><%= tag.name %></h3><br>
-      <a href="/tags/<%= tag.id %>"><img style="height:150px;width:auto;" src="<%= tag.giphy_url %>"> </a>
-    </td>
-  </tr>
-<% end %>
-</table>
+	<div id="page_title">
+  	<h1>Browse Events By Tag</h1>
+	</div>
+
+	<div class="row">
+    <% @tags.each do |tag| %>
+      <div class="col-xs-4">
+        <div class="tag_giphy">
+          <p class="giphy_text"><%= tag.name.upcase %> </p>
+          <a href="/tags/<%= tag.id %>"><img src="<%= tag.giphy_url %>"> </a>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+</div>

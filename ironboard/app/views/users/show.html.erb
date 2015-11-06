@@ -2,75 +2,154 @@
    <br><div class="notice"><%= flash[:notice] %></div>
  <% end %>
 
-<h2> User Name: <%= @user.name %> </h2>
+<!-- USER INFO-->
+<center>
+  <h1><%= @user.name %></h1>
+  <%= image_tag @user.img_url , size: "150", alt: "user_avatar" %>
+</center>
 
-<h3> User Bio: <%= @user.bio %> </h3>
+<!-- BEGIN USER NAV BAR -->
 
-<%= image_tag @user.img_url , size: "90", alt: "user_avatar" %>
+<div class="container">
 
-<br>
-<% if !@user.guest.events.empty? %>
-Events <%= @user.name %> is attending:
-<ul>
-  <% @user.guest.upcoming_events.sort_by_day.each do |event| %>
-  <li>
-  <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
+
+<!-- USER NAV BAR PILLS -->
+
+<ul class="nav nav-pills">
+  <li class="active"><a href="#profile" data-toggle="tab" aria-expanded="true">Profile</a></li>
+  <li class=""><a href="#attending" data-toggle="tab" aria-expanded="false">Attending <span class="badge"><%= @user.guest.upcoming_events.count %></span></a></li>
+  <li class=""><a href="#hosting" data-toggle="tab" aria-expanded="true">Hosting <span class="badge"><%= @user.host.upcoming_events.count %></span></a></li>
+  <li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+      Past Events <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <li><a href="#dropdown1" data-toggle="tab">Attended (<%= @user.guest.past_events.count %>)</a></li>
+      <li class="divider"></li>
+      <li><a href="#dropdown2" data-toggle="tab">Hosted (<%= @user.host.past_events.count %>)</a></li>
+    </ul>
   </li>
-    <% end %>
-  <% else %>
-  <%= @user.name %> is currently not attending any events. Boooring!
-  <%end %>
-                
 </ul>
-<br>
-<br>
-<% if !@user.host.events.empty? %>
-Events <%= @user.name %> is hosting:
-<ul>
-  <% @user.host.upcoming_events.sort_by_day.each do |event| %>
 
-  <li>
-  <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
-  </li>
-    <% end %>
-  <% else %>
-  <%= @user.name %> is currently not hosting any events.
-  <%end %>
-</ul> 
+<!-- USER NAV BAR CONTENT -->
+
+<div id="myTabContent" class="tab-content">
+
+  <div class="tab-pane fade active in" id="profile">
+    <li class="list-group-item">
+      <p><%= @user.bio %></p>
+    </li>
+  </div>
+
+  <div class="tab-pane fade" id="attending">
+    <% if !@user.guest.events.empty? %>
+      <% @user.guest.upcoming_events.sort_by_day.each do |event| %>
+        <li class="list-group-item">
+        <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
+        </li>
+        <% end %>
+      <% else %>
+        <li class="list-group-item">
+        Not attending any upcoming events. Lame!
+        </li>
+    <%end %>                  
+  </div>
+
+  <div class="tab-pane fade" id="hosting">
+    <% if !@user.host.events.empty? %>
+      <% @user.host.upcoming_events.sort_by_day.each do |event| %>
+        <li class="list-group-item">
+        <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
+        </li>
+        <% end %>
+      <% else %>
+        <li class="list-group-item">
+        Not hosting any upcoming events.
+        </li>
+    <%end %>                  
+  </div>  
+
+  <div class="tab-pane fade" id="dropdown1">
+    <% if !@user.guest.events.empty? %>
+      <% @user.guest.past_events.sort_by_day.each do |event| %>
+        <li class="list-group-item">
+        <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) 
+              <% if @user.guest.rated?(@user.guest, event) %>
+                 | User Rating: <%= @user.guest.rating(event) %> out of 5 stars
+                 <% else %>
+                <% if @user==current_user %>| 
+                <%= link_to 'Rate Event',guest_past_events_path(@user) %>
+                <% end %>
+              <% end %><br>
+        </li>
+        <% end %>
+      <% else %>
+        <li class="list-group-item">
+        No events attended.
+        </li>
+    <%end %>                  
+  </div>
+
+
+  <div class="tab-pane fade" id="dropdown2">
+    <% if !@user.host.events.empty? %>
+      <% @user.host.past_events.sort_by_day.each do |event| %>
+        <li class="list-group-item">
+        <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>)
+              <% if !event.ratings.empty? %>
+              | Average Attendee Rating: <%= event.average_rating %> out of 5 stars
+              <% end %>
+        </li>
+        <% end %>
+      <% else %>
+        <li class="list-group-item">
+        No events hosted.
+        </li>
+    <%end %>                  
+  </div>  
+</div>
+
 <br>
-<br>
-<% if !@user.guest.past_events.empty? %>
-Events <%= @user.name %> has attended:
-<ul>
-<% @user.guest.past_events.sort_by_day.each do |event| %>
-  <li>
-  <%= link_to event.title,event_path() %>: <%= event.description %> (<%= event.day %>) <br>
-  </li>
-<% end %>
-<% else %>
-  <%= @user.name %> has not attended any events.
-<% end %>
-</ul>
-<br>
-<br>
-<% if !@user.host.past_events.empty? %>
-Events <%= @user.name %> has hosted:
-<ul>
-<% @user.host.past_events.sort_by_day.each do |event| %>
-  <li>
-  <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
-  </li>
-<% end %>
-<% else %>
-  <%= @user.name %> has not hosted any events.
-<% end %>
-</ul> 
-<br>
-<br>
+
+<!-- END OF USER NAV BAR -->
 
 <% if @user==current_user %>
-	<%= link_to 'Edit', edit_user_path(@user) %> |
+<a href="#myModal" data-toggle="modal">Edit Profile</a> | 
 <% end %>
-
 <%= link_to 'Back', users_path %>
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+          <h4 class="modal-title">Edit Profile</h4>
+        </div>
+        <div class="modal-body"> <!-- modal body s-->
+        <div class="form-horizontal"> <!-- form-horizontal s-->
+          <%= form_for @user, html: {class: "form-horizontal"} do |f| %>
 
+          <div class="form-group">
+            <%= image_tag @user.img_url , size: "80", alt: "user_avatar" %><br>
+            <label class="control-label" for="image_url">Edit Image URL:</label><br>
+            <%= f.text_field :img_url %>
+            </div>
+            <div class="form-group">
+            <label class="control-label" for="bio">Edit Bio:</label><br>
+            <%= f.text_area :bio %>
+            </div>
+          <br>
+          </div> <!-- form-horizontal e-->
+        <div class="modal-footer"> <!-- modal footer s-->
+          <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
+           <i class="icon-ok icon-white"></i> Update Profile
+            <% end %>
+          <%end %>
+        </div> <!-- modal footer e -->
+    </div> <!-- modal body e-->
+  </div> <!-- modal content e-->
+</div> <!-- modal dialogue e-->
+</div>
+</div>
+
+
+</div>

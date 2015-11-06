@@ -23,4 +23,6 @@ class Guest < ActiveRecord::Base
     group('guests.id').order('events_count desc limit 1')
   end
 
+  
+
 end

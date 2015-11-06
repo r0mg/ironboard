@@ -5,26 +5,34 @@
     <% @attended_events.each do |event| %>
       <tr>
         <td><%= link_to event.title, event_path(event) %></td>
-        <td>
+      
+        <% if current_user.guest.rated?(current_user.guest, event) %>
+          <td>
+          |    You gave this event <%= current_user.guest.rating(event) %> stars!
+          </td>
+          <% else %>
+          <td>
           <%= form_for(@rating, url: "/events/#{event.id}/rate") do |f| %>
            | <%= f.label :stars %>
             <%= f.select :stars, (1..5) %>
-        </td>
-      <tr>
-        <td>
-          <%= f.label :feedback %>
-          <%= f.text_field :feedback %>
-        <td> | <% if current_user.guest.rated?(current_user.guest, event) %>
-          You gave this event <%= current_user.guest.rating(event) %> stars!
+          </td>
+        
+          <tr>
+          <td>
+            <%= f.label :feedback %>
+            <%= f.text_field :feedback %>
+         </td>
+         </tr>
+
+          <tr>
+          <td><%= f.submit "Rate this event!" %><br><br>
+          </td>
+          </tr>
+             <% end %>
           <% end %>
-        </td>
-      </tr>
-      <tr>
-        <td><br><%= f.submit "Rate this event!" %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
+      <% end %>
+
   </table>
 </div>
+
 
