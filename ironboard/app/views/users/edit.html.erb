@@ -2,12 +2,16 @@
 
 <%= form_for(@user) do |f| %>
 <div class="actions">
+  <p>
+  <%= f.label :image_url %>
+  <%= f.text_field :img_url %>
+  <p>
   <%= f.label :bio %>
-  <%= f.text_field :bio %>
+  <%= f.text_area :bio %>
   <br>
   <br>
 <%= button_to "UPDATE PROFILE", user_path %>
 <br>
 <%= link_to @user.name, @user %> |
-<%= link_to 'all users', users_path %>
+<%= link_to 'All Users', users_path %>
 <%end %>
