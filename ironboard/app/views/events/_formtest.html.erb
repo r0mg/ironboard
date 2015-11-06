@@ -1,83 +1,4 @@
-
-<div class="container">
-<% if flash[:notice] %>
-   <div class="notice"><%= flash[:notice] %></div>
- <% end %>
-<%= form_for @event, html: {class: "form-horizontal"} do |f| %>
-
-  <% if @event.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
-
-      <ul>
-      <% @event.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-<div class="row">
-<div class="col-xs-6">
-<div class="jumbotron">
-  <div class="form-group">
-    <%= f.label :title %>
-    <div class="col-lg-10">
-      <%= f.text_field :title %>
-    </div>
-  </div>
-  <div class="form-group">  
-    <%= f.label :day %>
-    <div class="col-lg-10">
-      <%= f.date_field :day %>
-    </div>
-  </div>
-  <div class="form-group">  
-    <%= f.label :start_time %>
-    <div class="col-lg-10">
-      <%= f.time_field :start_time %>
-    </div>
-  </div>
-  <div class="form-group">  
-    <%= f.label :end_time %>
-    <div class="col-lg-10">
-      <%= f.time_field :end_time %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :location %>
-    <div class="col-lg-10">
-      <%= f.text_field :location %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :description %>
-    <div class="col-lg-10">
-      <%= f.text_area :description %>
-    </div>
-  </div>
-</div>
-</div>
-<div class="col-xs-6">
-<div class="jumbotron">
-    <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) {|b| b.label(:"name" => b.value, :class => "checkbox") { b.check_box(:class => "checkbox") + b.text } } %>
-    <%= f.fields_for :tags, Tag.new do |tag_f| %>
-    <h4>Add new tag: </h4>
-          
-    <%= tag_f.label :name %>
-    <%= tag_f.text_field :name %>
-  <% end %>
-
-  </div>
-</div>
-</div>
-</div>
-<div class="container">
-  <div class="well panel-primary">
-    <center><h3 class="panel-title"><%= f.submit %><% end %></h3></center>
-  </div>
-</div>
-
-<!--<form class="form-horizontal">
+<form class="form-horizontal">
   <fieldset>
     <legend>Legend</legend>
     <div class="form-group">
@@ -148,4 +69,4 @@
       </div>
     </div>
   </fieldset>
-</form>-->
+</form>
