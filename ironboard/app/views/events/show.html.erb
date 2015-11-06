@@ -1,54 +1,3 @@
-<<<<<<< HEAD
-<% @view_object = EventViewObject.new(@event) %>
-
-<% if flash[:notice] %>
-   <div class="notice"><%= flash[:notice] %></div>
- <% end %>
-
-<h1><%= @event.title %></h1>
-
-<div class="event-top-info">
-  <% @event.tags.each do |tag| %>
-    <a href="/tags/<%= tag.id %>"><img style="height:150px;width:auto;" src="<%= tag.giphy_url %>"> </a>
-  <% end %>
-    
-  <h3>
-    Day of event: <%= @event.day %>
-  </h3>
-  <ul>
-    <li>
-      Starts at <%= @view_object.starts_at %>
-    </li>
-    <li>
-      Ends at <%= @view_object.ends_at %>
-    </li>
-    <li>
-      Located: <%= @event.location %>
-    </li>
-  </ul>
-
-<iframe
-  width="400"
-  height="300"
-  frameborder="0" style="border:0"
-  src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyDmdPRiBHOWqZOBU1FeaJDhi6IkE-MYst8
-    &origin=place_id:ChIJfSpRxqVZwokRbhDqemhazdA&destination=<%=@event.location %>,New York+NY" allowfullscreen>
-</iframe>
-
-</div>
-<div class="event-more-info">
-  <p>
-    <%= @event.description %>
-  </p>
-  <p>
-    Hosted by: <%= link_to @event.host.user.name,user_path(@event.host.user) %>!
-  </p>
-</div>
-
-<% if current_user && @event.host.user!=current_user %>
-  <div>
-  <%= button_to "Attend Event", rsvp_path %>
-=======
 <div class="container">
   <% @view_object = EventViewObject.new(@event) %>
 
@@ -65,7 +14,7 @@
             <% if @event.host.user == current_user %>
               <a href="<%= edit_event_path(@event) %>" class="btn btn-primary btn-sm">Edit Event</a>
             <% else %>
-              <% if !current_user.guest.events.include?(@event) %>
+              <% if current_user && !current_user.guest.events.include?(@event) %>
                 <%= form_tag rsvp_path(@event) %>
                 <button type="submit"class="btn btn-primary btn-sm attend_button">Attend!</button>
               <% end %>
@@ -100,7 +49,6 @@
           &origin=place_id:ChIJfSpRxqVZwokRbhDqemhazdA&destination=<%=@event.location %>,New York+NY">
       </iframe>
     </div>
->>>>>>> refs/remotes/origin/master
   </div>
 
   <div class="row">
