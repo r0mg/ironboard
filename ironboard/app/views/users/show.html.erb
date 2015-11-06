@@ -1,76 +1,78 @@
-<% if flash[:notice] %>
-   <br><div class="notice"><%= flash[:notice] %></div>
- <% end %>
+<div class="container">
+  <% if flash[:notice] %>
+     <br><div class="notice"><%= flash[:notice] %></div>
+   <% end %>
 
-<h2> User Name: <%= @user.name %> </h2>
+  <h2> User Name: <%= @user.name %> </h2>
 
-<h3> User Bio: <%= @user.bio %> </h3>
+  <h3> User Bio: <%= @user.bio %> </h3>
 
-<%= image_tag @user.img_url , size: "90", alt: "user_avatar" %>
+  <%= image_tag @user.img_url , size: "90", alt: "user_avatar" %>
 
-<br>
-<% if !@user.guest.events.empty? %>
-Events <%= @user.name %> is attending:
-<ul>
-  <% @user.guest.upcoming_events.sort_by_day.each do |event| %>
-  <li>
-  <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
-  </li>
-    <% end %>
+  <br>
+  <% if !@user.guest.events.empty? %>
+  Events <%= @user.name %> is attending:
+  <ul>
+    <% @user.guest.upcoming_events.sort_by_day.each do |event| %>
+    <li>
+    <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
+    </li>
+      <% end %>
+    <% else %>
+    <%= @user.name %> is currently not attending any events. Boooring!
+    <%end %>
+                  
+  </ul>
+  <br>
+  <br>
+  <% if !@user.host.events.empty? %>
+  Events <%= @user.name %> is hosting:
+  <ul>
+    <% @user.host.upcoming_events.sort_by_day.each do |event| %>
+
+    <li>
+    <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
+    </li>
+      <% end %>
+    <% else %>
+    <%= @user.name %> is currently not hosting any events.
+    <%end %>
+  </ul> 
+  <br>
+  <br>
+  <% if !@user.guest.past_events.empty? %>
+  Events <%= @user.name %> has attended:
+  <ul>
+  <% @user.guest.past_events.sort_by_day.each do |event| %>
+    <li>
+    <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
+    </li>
+  <% end %>
   <% else %>
-  <%= @user.name %> is currently not attending any events. Boooring!
-  <%end %>
-                
-</ul>
-<br>
-<br>
-<% if !@user.host.events.empty? %>
-Events <%= @user.name %> is hosting:
-<ul>
-  <% @user.host.upcoming_events.sort_by_day.each do |event| %>
-
-  <li>
-  <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
-  </li>
-    <% end %>
+    <%= @user.name %> has not attended any events.
+  <% end %>
+  </ul>
+  <br>
+  <br>
+  <% if !@user.host.past_events.empty? %>
+  Events <%= @user.name %> has hosted:
+  <ul>
+  <% @user.host.past_events.sort_by_day.each do |event| %>
+    <li>
+    <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
+    </li>
+  <% end %>
   <% else %>
-  <%= @user.name %> is currently not hosting any events.
-  <%end %>
-</ul> 
-<br>
-<br>
-<% if !@user.guest.past_events.empty? %>
-Events <%= @user.name %> has attended:
-<ul>
-<% @user.guest.past_events.sort_by_day.each do |event| %>
-  <li>
-  <%= link_to event.title,event_path() %>: <%= event.description %> (<%= event.day %>) <br>
-  </li>
-<% end %>
-<% else %>
-  <%= @user.name %> has not attended any events.
-<% end %>
-</ul>
-<br>
-<br>
-<% if !@user.host.past_events.empty? %>
-Events <%= @user.name %> has hosted:
-<ul>
-<% @user.host.past_events.sort_by_day.each do |event| %>
-  <li>
-  <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
-  </li>
-<% end %>
-<% else %>
-  <%= @user.name %> has not hosted any events.
-<% end %>
-</ul> 
-<br>
-<br>
+    <%= @user.name %> has not hosted any events.
+  <% end %>
+  </ul> 
+  <br>
+  <br>
 
-<% if @user==current_user %>
-	<%= link_to 'Edit', edit_user_path(@user) %> |
-<% end %>
+  <% if @user==current_user %>
+  	<%= link_to 'Edit', edit_user_path(@user) %> |
+  <% end %>
 
-<%= link_to 'Back', users_path %>
+  <%= link_to 'Back', users_path %>
 
+</div>
