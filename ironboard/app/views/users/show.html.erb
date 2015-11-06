@@ -6,12 +6,13 @@
 <!-- USER INFO-->
 <center>
   <h1><%= @user.name %></h1>
-  <%= image_tag @user.img_url , size: "100", alt: "user_avatar" %>
+  <%= image_tag @user.img_url , size: "150", alt: "user_avatar" %>
 </center>
 
 <!-- BEGIN USER NAV BAR -->
 
 <div class="container">
+
 
 <!-- USER NAV BAR PILLS -->
 
@@ -37,7 +38,7 @@
 
   <div class="tab-pane fade active in" id="profile">
     <li class="list-group-item">
-      <p class="text-info"><%= @user.bio %></p>
+      <p><%= @user.bio %></p>
     </li>
   </div>
 
@@ -73,7 +74,7 @@
     <% if !@user.guest.events.empty? %>
       <% @user.guest.past_events.sort_by_day.each do |event| %>
         <li class="list-group-item">
-        <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <br>
+        <%= link_to event.title,event_path(event) %>: <%= event.description %> (<%= event.day %>) <% if @user==current_user %>| <%= link_to 'Rate Event',guest_past_events_path(@user) %><% end %><br>
         </li>
         <% end %>
       <% else %>
@@ -103,12 +104,42 @@
 
 <!-- END OF USER NAV BAR -->
 
-
 <% if @user==current_user %>
-	<%= link_to 'Edit Profile', edit_user_path(@user) %> |
+<a href="#myModal" data-toggle="modal">Edit Profile</a> | 
 <% end %>
-
 <%= link_to 'Back', users_path %>
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+          <h4 class="modal-title">Edit Profile</h4>
+        </div>
+        <div class="modal-body"> <!-- modal body s-->
+        <div class="form-horizontal"> <!-- form-horizontal s-->
+          <%= form_for @user, html: {class: "form-horizontal"} do |f| %>
 
+          <div class="form-group">
+            <%= image_tag @user.img_url , size: "80", alt: "user_avatar" %><br>
+            <label class="control-label" for="image_url">Edit Image URL:</label><br>
+            <%= f.text_field :img_url %>
+            </div>
+            <div class="form-group">
+            <label class="control-label" for="bio">Edit Bio:</label><br>
+            <%= f.text_area :bio %>
+            </div>
+          <br>
+          </div> <!-- form-horizontal e-->
+        <div class="modal-footer"> <!-- modal footer s-->
+          <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
+           <i class="icon-ok icon-white"></i> Update Profile
+            <% end %>
+          <%end %>
+        </div> <!-- modal footer e -->
+    </div> <!-- modal body e-->
+  </div> <!-- modal content e-->
+</div> <!-- modal dialogue e-->
 </div>
+</div>
+
 
