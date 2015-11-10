@@ -25,7 +25,9 @@
          </tr>
 
           <tr>
-          <td><%= f.submit "Rate this event!" %><br><br>
+          <td><%= button_tag(type: 'submit', class: "btn btn-primary") do %>
+           <i class="icon-ok icon-white"></i> Rate Event
+            <% end %><br><br>
           </td>
           </tr>
              <% end %>
