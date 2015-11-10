@@ -12,7 +12,6 @@ module Adapters
 			s_results = RecursiveOpenStruct.new(results, :recurse_over_arrays => true)
 		end
 
-
 	end
 
 end
