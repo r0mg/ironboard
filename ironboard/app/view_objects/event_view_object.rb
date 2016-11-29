@@ -14,11 +14,11 @@ class EventViewObject
   	"#{hour}:#{minutes} #{am_pm}"
   end
 
-	def ends_at
-		am_pm = "AM" 	
-		am_pm = "PM" if @event.end_time.hour>12
-		hour = "#{@event.end_time.hour%12}"
-    hour = '0'+ hour  if hour.length == 1
+  def ends_at
+	am_pm = "AM" 	
+	am_pm = "PM" if @event.end_time.hour>12
+	hour = "#{@event.end_time.hour%12}"
+	hour = '0'+ hour  if hour.length == 1
   	minutes = "#{@event.end_time.min}"
   	minutes = '0'+minutes if minutes.length == 1
   	"#{hour}:#{minutes} #{am_pm}"
