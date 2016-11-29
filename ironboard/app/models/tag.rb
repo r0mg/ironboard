@@ -6,7 +6,7 @@ class Tag < ActiveRecord::Base
   
 	def giphy_url
 		giphy_client = Adapters::GiphyClient.new
-    	giphy_client.find_by_tag(self.name.gsub(' ','+'))
+    	giphy_client.find_by_tag(self.name.tr(' ','+'))
 	end
 
   def unique_events
